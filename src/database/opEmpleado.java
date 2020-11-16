@@ -12,25 +12,38 @@ public class opEmpleado {
     
     String cadenaConexion = "jdbc:sqlserver://;database=videotienda;integratedSecurity=true";
     
-    public ResultSet login(String user, String pass){
-        ResultSet result = null;
+    public opEmpleado(){
+    
+    }
+    
+    public String[] login(String user, String pass){
+        String result[] = new String [7];
         try{
             Connection con = DriverManager.getConnection(cadenaConexion);
             Statement stmt = con.createStatement();
-            String query = "Select * from empleado where usuario = '+"+user+"', contrasena = '"+pass+"'";
+            String query = "Select * from empleado where usuario = '"+user+"' and contrasena = '"+pass+"'";
             ResultSet rs = stmt.executeQuery(query);
-            if(rs.next()){
-                result =  rs;
+            
+            while(rs.next()){
+                result[0] = rs.getString(1);
+                result[1] = rs.getString(2);
+                result[2] = rs.getString(3);
+                result[3] = rs.getString(4);
+                result[4] = rs.getString(5);
+                result[5] = rs.getString(6);
+                result[6] = rs.getString(7);
             }
-            con.close();
+            
+            
             stmt.close();
+            con.close();
         }catch(SQLException ex){
             System.out.println("Ha ocurrido un error: "+ex);
         }
         return result;
     }
     
-    private boolean add(String codigo, String nombre, String apellido, int edad, String telefono, String user, String pass){
+    public boolean add(String codigo, String nombre, String apellido, int edad, String telefono, String user, String pass){
         boolean result = false;
         try {
             Connection con = DriverManager.getConnection(cadenaConexion);
@@ -39,7 +52,7 @@ public class opEmpleado {
             String query = "Insert into empleado values('"+codigo+"','"+nombre+"','"+apellido+"',"+edad+",'"+telefono+"','"+user+"','"+pass+"');";
             stmt.executeUpdate(query);
             
-            
+            result = true;
             stmt.close();
             con.close();
         } catch (SQLException ex) {
@@ -48,16 +61,24 @@ public class opEmpleado {
         return result;
     }
 
-    public ResultSet buscar(String codigo){    
-        ResultSet result = null;
+    public String[] buscar(String codigo){    
+        String result[] = new String[7];
         try {
             Connection con = DriverManager.getConnection(cadenaConexion);
             Statement stmt = con.createStatement();
         
             ResultSet rs = stmt.executeQuery("Select * from empleado where codigo = '"+codigo+"';");
-            if(rs.next()){
-                result = rs;
+            
+            while(rs.next()){
+                result[0] = rs.getString(1);
+                result[1] = rs.getString(2);
+                result[2] = rs.getString(3);
+                result[3] = rs.getString(4);
+                result[4] = rs.getString(5);
+                result[5] = rs.getString(6);
+                result[6] = rs.getString(7);
             }
+            
             stmt.close();
             rs.close();
             con.close();
