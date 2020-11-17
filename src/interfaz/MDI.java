@@ -134,7 +134,13 @@ public class MDI extends javax.swing.JFrame {
     }//GEN-LAST:event_menuSalirActionPerformed
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
-        // TODO add your handling code here:
+       //Redireccionar al formulario de gestion de empleados
+       
+       frmEmpleado empleados = new frmEmpleado();
+       Escritorio.add(empleados);
+       
+       //mostrar el formulario
+       empleados.show();  
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
     private void menuClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuClientesActionPerformed
