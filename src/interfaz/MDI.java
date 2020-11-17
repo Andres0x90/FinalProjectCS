@@ -144,8 +144,7 @@ public class MDI extends javax.swing.JFrame {
        Escritorio.add(clientes);
        
        //mostrar el formulario
-       clientes.show();
-       
+       clientes.show();       
     }//GEN-LAST:event_menuClientesActionPerformed
 
     private void saveAsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsMenuItemActionPerformed
