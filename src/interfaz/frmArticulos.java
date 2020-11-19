@@ -210,11 +210,6 @@ public class frmArticulos extends javax.swing.JInternalFrame {
                 txt_buscarClienteActionPerformed(evt);
             }
         });
-        txt_buscarCliente.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_buscarClienteKeyTyped(evt);
-            }
-        });
 
         btn_buscarArticulo.setBackground(new java.awt.Color(74, 79, 231));
         btn_buscarArticulo.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
@@ -635,10 +630,6 @@ public class frmArticulos extends javax.swing.JInternalFrame {
     private void txt_precioVentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_precioVentaKeyTyped
         inputNumeros(evt);
     }//GEN-LAST:event_txt_precioVentaKeyTyped
-
-    private void txt_buscarClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarClienteKeyTyped
-        inputNumeros(evt);
-    }//GEN-LAST:event_txt_buscarClienteKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
