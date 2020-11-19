@@ -128,6 +128,7 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
             }
         });
 
+        txt_codigo.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         txt_codigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_codigo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_codigo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -148,6 +149,7 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
             }
         });
 
+        txt_nombre.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         txt_nombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_nombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_nombre.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -165,6 +167,7 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
             }
         });
 
+        txt_apellido.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         txt_apellido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_apellido.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_apellido.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -182,6 +185,7 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
             }
         });
 
+        txt_edad.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         txt_edad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_edad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_edad.addActionListener(new java.awt.event.ActionListener() {
@@ -207,6 +211,7 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
             }
         });
 
+        txt_fechaNacimiento.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         txt_fechaNacimiento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_fechaNacimiento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_fechaNacimiento.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -224,6 +229,7 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
             }
         });
 
+        txt_telefono.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         txt_telefono.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_telefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_telefono.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -232,6 +238,7 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
             }
         });
 
+        txt_buscarEmpleado.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         txt_buscarEmpleado.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_buscarEmpleado.setText("Buscar empleado por código de registro");
         txt_buscarEmpleado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -250,6 +257,11 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
                 txt_buscarEmpleadoActionPerformed(evt);
             }
         });
+        txt_buscarEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_buscarEmpleadoKeyTyped(evt);
+            }
+        });
 
         btn_buscarCliente.setBackground(new java.awt.Color(74, 79, 231));
         btn_buscarCliente.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
@@ -257,6 +269,7 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
         btn_buscarCliente.setText("Buscar empleado");
         btn_buscarCliente.setBorder(null);
         btn_buscarCliente.setBorderPainted(false);
+        btn_buscarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_buscarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscarClienteActionPerformed(evt);
@@ -269,6 +282,7 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
         btn_registrarCliente.setText("Registrar empleado");
         btn_registrarCliente.setBorder(null);
         btn_registrarCliente.setBorderPainted(false);
+        btn_registrarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_registrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_registrarClienteActionPerformed(evt);
@@ -282,6 +296,7 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
         btn_actualizarEmpleado.setToolTipText("");
         btn_actualizarEmpleado.setBorder(null);
         btn_actualizarEmpleado.setBorderPainted(false);
+        btn_actualizarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btn_eliminarEmpleado.setBackground(new java.awt.Color(74, 79, 231));
         btn_eliminarEmpleado.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
@@ -290,6 +305,7 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
         btn_eliminarEmpleado.setToolTipText("");
         btn_eliminarEmpleado.setBorder(null);
         btn_eliminarEmpleado.setBorderPainted(false);
+        btn_eliminarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         lbl_apellido1.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_apellido1.setText("Contraseña:");
@@ -300,6 +316,7 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
             }
         });
 
+        txt_contrasena.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         txt_contrasena.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_contrasena.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_contrasena.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -317,6 +334,7 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
             }
         });
 
+        txt_usuario.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         txt_usuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_usuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_usuario.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -350,8 +368,8 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
                             .addComponent(txt_apellido)
                             .addComponent(txt_nombre)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(txt_buscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(txt_buscarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_buscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -364,8 +382,7 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(btn_actualizarEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_eliminarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(4, 4, 4))
+                                .addComponent(btn_eliminarEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(txt_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -456,9 +473,11 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jLabel8.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel8.setText("Permite registrar, buscar, actuailizar y eliminar los datos de los clientes.");
 
+        jLabel11.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel11.setText("Es necesario llenar todos los campos");
 
@@ -690,6 +709,10 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
             txt_contrasena.requestFocus();
         }     
     }//GEN-LAST:event_txt_usuarioKeyPressed
+
+    private void txt_buscarEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarEmpleadoKeyTyped
+        inputNumeros(evt);
+    }//GEN-LAST:event_txt_buscarEmpleadoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

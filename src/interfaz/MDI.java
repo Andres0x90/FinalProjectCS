@@ -38,9 +38,13 @@ public class MDI extends javax.swing.JFrame {
 
         menuArticulos.setMnemonic('f');
         menuArticulos.setText("Archivo");
+        menuArticulos.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
+        menuClientes.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         menuClientes.setMnemonic('c');
         menuClientes.setText("Gestión Clientes");
+        menuClientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuClientes.setMargin(new java.awt.Insets(10, 2, 10, 2));
         menuClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuClientesActionPerformed(evt);
@@ -48,8 +52,11 @@ public class MDI extends javax.swing.JFrame {
         });
         menuArticulos.add(menuClientes);
 
+        saveMenuItem.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         saveMenuItem.setMnemonic('e');
         saveMenuItem.setText("Gestión Empleados");
+        saveMenuItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        saveMenuItem.setMargin(new java.awt.Insets(10, 2, 10, 2));
         saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveMenuItemActionPerformed(evt);
@@ -57,8 +64,11 @@ public class MDI extends javax.swing.JFrame {
         });
         menuArticulos.add(saveMenuItem);
 
+        saveAsMenuItem.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         saveAsMenuItem.setMnemonic('a');
         saveAsMenuItem.setText("Gestión Artículos");
+        saveAsMenuItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        saveAsMenuItem.setMargin(new java.awt.Insets(10, 2, 10, 2));
         saveAsMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveAsMenuItemActionPerformed(evt);
@@ -66,8 +76,11 @@ public class MDI extends javax.swing.JFrame {
         });
         menuArticulos.add(saveAsMenuItem);
 
+        menuVentas.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         menuVentas.setMnemonic('v');
         menuVentas.setText("Gestión Ventas");
+        menuVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuVentas.setMargin(new java.awt.Insets(10, 2, 10, 2));
         menuVentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuVentasActionPerformed(evt);
@@ -75,8 +88,11 @@ public class MDI extends javax.swing.JFrame {
         });
         menuArticulos.add(menuVentas);
 
+        menuReporte.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         menuReporte.setMnemonic('r');
         menuReporte.setText("Reportes");
+        menuReporte.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuReporte.setMargin(new java.awt.Insets(10, 2, 10, 2));
         menuReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuReporteActionPerformed(evt);
@@ -84,8 +100,11 @@ public class MDI extends javax.swing.JFrame {
         });
         menuArticulos.add(menuReporte);
 
+        menuSalir.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         menuSalir.setMnemonic('x');
         menuSalir.setText("salir");
+        menuSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        menuSalir.setMargin(new java.awt.Insets(10, 2, 10, 2));
         menuSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuSalirActionPerformed(evt);
@@ -97,6 +116,7 @@ public class MDI extends javax.swing.JFrame {
 
         helpMenu.setMnemonic('h');
         helpMenu.setText("Ayuda");
+        helpMenu.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
 
         contentMenuItem.setMnemonic('c');
         contentMenuItem.setText("info 1");
@@ -118,7 +138,7 @@ public class MDI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+            .addComponent(Escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
         );
 
         pack();
@@ -154,7 +174,13 @@ public class MDI extends javax.swing.JFrame {
     }//GEN-LAST:event_menuClientesActionPerformed
 
     private void saveAsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsMenuItemActionPerformed
-        // TODO add your handling code here:
+       //Redireccionar al formulario de  gestion de clientes
+       
+       frmArticulos articulos = new frmArticulos();
+       Escritorio.add(articulos);
+       
+       //mostrar el formulario
+       articulos.show();  
     }//GEN-LAST:event_saveAsMenuItemActionPerformed
 
     private void menuVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVentasActionPerformed

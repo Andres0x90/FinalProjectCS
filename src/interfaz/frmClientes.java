@@ -124,6 +124,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
             }
         });
 
+        txt_codigo.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         txt_codigo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_codigo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_codigo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -144,6 +145,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
             }
         });
 
+        txt_nombre.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         txt_nombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_nombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_nombre.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -161,6 +163,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
             }
         });
 
+        txt_apellido.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         txt_apellido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_apellido.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_apellido.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -178,6 +181,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
             }
         });
 
+        txt_edad.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         txt_edad.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_edad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_edad.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -198,6 +202,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
             }
         });
 
+        txt_direccion.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         txt_direccion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_direccion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_direccion.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -215,6 +220,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
             }
         });
 
+        txt_telefono.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         txt_telefono.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_telefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_telefono.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -223,6 +229,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
             }
         });
 
+        txt_buscarCliente.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         txt_buscarCliente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txt_buscarCliente.setText("Buscar cliente por código de registro");
         txt_buscarCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -241,6 +248,11 @@ public class frmClientes extends javax.swing.JInternalFrame {
                 txt_buscarClienteActionPerformed(evt);
             }
         });
+        txt_buscarCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_buscarClienteKeyTyped(evt);
+            }
+        });
 
         btn_buscarCliente.setBackground(new java.awt.Color(74, 79, 231));
         btn_buscarCliente.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
@@ -248,6 +260,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
         btn_buscarCliente.setText("Buscar cliente");
         btn_buscarCliente.setBorder(null);
         btn_buscarCliente.setBorderPainted(false);
+        btn_buscarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_buscarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscarClienteActionPerformed(evt);
@@ -260,6 +273,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
         btn_registrarCliente.setText("Registrar cliente");
         btn_registrarCliente.setBorder(null);
         btn_registrarCliente.setBorderPainted(false);
+        btn_registrarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_registrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_registrarClienteActionPerformed(evt);
@@ -273,6 +287,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
         btn_actualizarCliente.setToolTipText("");
         btn_actualizarCliente.setBorder(null);
         btn_actualizarCliente.setBorderPainted(false);
+        btn_actualizarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btn_eliminarCliente.setBackground(new java.awt.Color(74, 79, 231));
         btn_eliminarCliente.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
@@ -281,6 +296,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
         btn_eliminarCliente.setToolTipText("");
         btn_eliminarCliente.setBorder(null);
         btn_eliminarCliente.setBorderPainted(false);
+        btn_eliminarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -401,9 +417,11 @@ public class frmClientes extends javax.swing.JInternalFrame {
             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        jLabel8.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel8.setText("Permite registrar, buscar, actuailizar y eliminar los datos de los clientes.");
 
+        jLabel11.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel11.setText("Es necesario llenar todos los campos");
 
@@ -600,18 +618,22 @@ public class frmClientes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_buscarClienteActionPerformed
 
     private void btn_registrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarClienteActionPerformed
-        
-        if( txt_codigo.getText().equals("") || txt_nombre.getText().equals("") || txt_apellido.getText().equals("") || txt_edad.getText().equals("") ||
-            txt_telefono.getText().equals("") || txt_direccion.getText().equals("")) {
-            
+
+        if (txt_codigo.getText().equals("") || txt_nombre.getText().equals("") || txt_apellido.getText().equals("") || txt_edad.getText().equals("")
+                || txt_telefono.getText().equals("") || txt_direccion.getText().equals("")) {
+
             JOptionPane.showMessageDialog(null, "Es necesario llenar todos los campos.");
         }
     }//GEN-LAST:event_btn_registrarClienteActionPerformed
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-       txt_codigo.requestFocus();
+        txt_codigo.requestFocus();
 
     }//GEN-LAST:event_formInternalFrameActivated
+
+    private void txt_buscarClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarClienteKeyTyped
+        inputNumeros(evt);
+    }//GEN-LAST:event_txt_buscarClienteKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
