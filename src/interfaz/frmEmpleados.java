@@ -651,7 +651,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
 
     private void btn_buscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarClienteActionPerformed
 
-        if (txt_buscarEmpleado.getText().equals("Buscar cliente por código de registro")) {
+        if (txt_buscarEmpleado.getText().equals("Buscar empleado por código de registro")) {
             JOptionPane.showMessageDialog(this, "Es necesario el código de empleado que se desea buscar.");
         } else {
             //Informacion de prueba : BORRAR         

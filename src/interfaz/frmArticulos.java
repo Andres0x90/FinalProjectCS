@@ -557,7 +557,7 @@ public class frmArticulos extends javax.swing.JInternalFrame {
 
     private void btn_buscarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarArticuloActionPerformed
 
-        if (txt_buscarCliente.getText().equals("Buscar cliente por código de registro")) {
+        if (txt_buscarCliente.getText().equals("Buscar articulo por código de registro")) {
             JOptionPane.showMessageDialog(this, "Es necesario el código de cliente que se desea buscar.");
         } else {
             //Informacion de prueba : BORRAR         
