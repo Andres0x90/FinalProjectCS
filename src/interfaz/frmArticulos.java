@@ -95,8 +95,7 @@ public class frmArticulos extends javax.swing.JInternalFrame {
         setBorder(null);
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
-        setTitle("Gestión de clientes");
+        setTitle("Gestión de articulos");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setPreferredSize(new java.awt.Dimension(800, 600));
         setVisible(true);
@@ -559,7 +558,7 @@ public class frmArticulos extends javax.swing.JInternalFrame {
     private void btn_buscarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarArticuloActionPerformed
 
         if (txt_buscarCliente.getText().equals("Buscar cliente por código de registro")) {
-            JOptionPane.showMessageDialog(null, "Es necesario el código de cliente que se desea buscar.");
+            JOptionPane.showMessageDialog(this, "Es necesario el código de cliente que se desea buscar.");
         } else {
             //Informacion de prueba : BORRAR         
             txt_codigo.setText("1");

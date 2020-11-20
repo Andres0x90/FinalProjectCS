@@ -5,6 +5,7 @@
  */
 package interfaz;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +21,15 @@ public class frmLogin extends javax.swing.JFrame {
         initComponents();
 
         txt_usuario.selectAll();
+    }
+
+    //Detectar la tecla enter
+    private boolean teclaEnter(java.awt.event.KeyEvent evt) {
+        boolean result = false;
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            result = true;
+        }
+        return result;
     }
 
     /**
@@ -204,14 +214,14 @@ public class frmLogin extends javax.swing.JFrame {
     private void btn_iniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_iniciarSesionActionPerformed
 
         if (txt_usuario.getText().equals("admin") && txt_contrasena.getText().equals("123")) {
-            JOptionPane.showMessageDialog(null, "Redireccionar MDI"); 
+            JOptionPane.showMessageDialog(this, "Redireccionar MDI");
         } else {
-            if(!(txt_usuario.getText().equals("admin")) && txt_contrasena.getText().equals("123")){
-                JOptionPane.showMessageDialog(null, "Usuario inválido.");
-            } else if(!(txt_contrasena.getText().equals("123")) && txt_usuario.getText().equals("admin")){
-                JOptionPane.showMessageDialog(null, "Contraseña inválido.");
+            if (!(txt_usuario.getText().equals("admin")) && txt_contrasena.getText().equals("123")) {
+                JOptionPane.showMessageDialog(this, "Usuario inválido.");
+            } else if (!(txt_contrasena.getText().equals("123")) && txt_usuario.getText().equals("admin")) {
+                JOptionPane.showMessageDialog(this, "Contraseña inválido.");
             } else {
-                JOptionPane.showMessageDialog(null, "Usuario y Contraseña inválido.");
+                JOptionPane.showMessageDialog(this, "Usuario y Contraseña inválido.");
             }
         }
     }//GEN-LAST:event_btn_iniciarSesionActionPerformed
