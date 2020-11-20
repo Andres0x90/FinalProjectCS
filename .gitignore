@@ -1,6 +1,5 @@
 /build/
 /nbproject/
-mssql-jdbc_auth-8.4.1.x64.dll
-mssql-jdbc-8.4.1.jre14.jar
+/nbproject/project.properties
 build.xml
 manifest.mf
