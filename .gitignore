@@ -1,5 +1,4 @@
 /build/
-/nbproject/
-/nbproject/project.properties
+/nbproject/private
 build.xml
 manifest.mf
