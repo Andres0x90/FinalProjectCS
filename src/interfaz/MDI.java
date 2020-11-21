@@ -145,7 +145,13 @@ public class MDI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuReporteActionPerformed
-        // TODO add your handling code here:
+        //Redireccionar al formulario de gestion de empleados
+       
+       frmReporte reporte = new frmReporte();
+       Escritorio.add(reporte);
+       
+       //mostrar el formulario
+       reporte.show();  
     }//GEN-LAST:event_menuReporteActionPerformed
 
     private void menuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSalirActionPerformed
