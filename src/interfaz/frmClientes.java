@@ -1,6 +1,8 @@
 package interfaz;
 
 // Redimensionar imagenes
+import backend.Cliente;
+import database.Crud;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -115,7 +117,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
         lbl_codigo.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_codigo.setText("Código:");
         lbl_codigo.setToolTipText("");
-        lbl_codigo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_codigo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_codigo.setName(""); // NOI18N
         lbl_codigo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -137,7 +139,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
 
         lbl_nombre.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_nombre.setText("Nombre:");
-        lbl_nombre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_nombre.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_nombre.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_nombreMouseClicked(evt);
@@ -155,7 +157,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
 
         lbl_apellido.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_apellido.setText("Apellido:");
-        lbl_apellido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_apellido.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_apellido.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_apellidoMouseClicked(evt);
@@ -173,7 +175,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
 
         lbl_edad.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_edad.setText("Edad:");
-        lbl_edad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_edad.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_edad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_edadMouseClicked(evt);
@@ -194,7 +196,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
 
         lbl_direccion.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_direccion.setText("Dirección:");
-        lbl_direccion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_direccion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_direccion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_direccionMouseClicked(evt);
@@ -212,7 +214,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
 
         lbl_telefono.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_telefono.setText("Teléfono:");
-        lbl_telefono.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_telefono.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_telefono.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_telefonoMouseClicked(evt);
@@ -287,6 +289,11 @@ public class frmClientes extends javax.swing.JInternalFrame {
         btn_actualizarCliente.setBorder(null);
         btn_actualizarCliente.setBorderPainted(false);
         btn_actualizarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_actualizarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actualizarClienteActionPerformed(evt);
+            }
+        });
 
         btn_eliminarCliente.setBackground(new java.awt.Color(74, 79, 231));
         btn_eliminarCliente.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
@@ -296,6 +303,11 @@ public class frmClientes extends javax.swing.JInternalFrame {
         btn_eliminarCliente.setBorder(null);
         btn_eliminarCliente.setBorderPainted(false);
         btn_eliminarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_eliminarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarClienteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -593,22 +605,26 @@ public class frmClientes extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txt_buscarClienteFocusLost
 
+    private void actualizarCampos(Cliente cliente)
+    {
+        txt_codigo.setText(cliente.getCodigo());
+        txt_nombre.setText(cliente.getNombre());
+        txt_apellido.setText(cliente.getApellido());
+        txt_edad.setText(Integer.toString(cliente.getEdad()));
+        txt_direccion.setText(cliente.getDireccion());
+        txt_telefono.setText(cliente.getTelefono());
+    }
+    
     private void btn_buscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarClienteActionPerformed
 
         if (txt_buscarCliente.getText().equals("Buscar cliente por código de registro")) {
-            JOptionPane.showMessageDialog(this, "Es necesario el código de cliente que se desea buscar.");
-        } else {
-            //Informacion de prueba : BORRAR         
-            txt_codigo.setText("1");
-            txt_nombre.setText("Andres");
-            txt_apellido.setText("Serna");
-            txt_edad.setText("24");
-            txt_telefono.setText("321-888-6044");
-            txt_direccion.setText("Diagonal 58 # 84 52 - Niquia");
-
-            //Evitar poder Actualizar el código
-            txt_codigo.setEditable(false);
-
+            JOptionPane.showMessageDialog(null, "Es necesario el código de cliente que se desea buscar.");
+        } 
+        else 
+        {
+            Cliente cliente = new Cliente();
+            cliente.buscar(this, txt_buscarCliente.getText());
+            actualizarCampos(cliente);
         }
     }//GEN-LAST:event_btn_buscarClienteActionPerformed
 
@@ -623,6 +639,12 @@ public class frmClientes extends javax.swing.JInternalFrame {
 
             JOptionPane.showMessageDialog(this, "Es necesario llenar todos los campos.");
         }
+        else
+        {
+            Cliente cliente = new Cliente(txt_codigo.getText(), txt_nombre.getText(), txt_apellido.getText(), Integer.parseInt(txt_edad.getText()),
+             txt_direccion.getText(), txt_telefono.getText());
+            cliente.registrar(this);
+        }
     }//GEN-LAST:event_btn_registrarClienteActionPerformed
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
@@ -633,6 +655,29 @@ public class frmClientes extends javax.swing.JInternalFrame {
     private void txt_buscarClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarClienteKeyTyped
         inputNumeros(evt);
     }//GEN-LAST:event_txt_buscarClienteKeyTyped
+
+    private void btn_eliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarClienteActionPerformed
+
+        if (JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar este cliente? ", "Eliminar cliente", JOptionPane.YES_NO_OPTION) == 0)
+        {
+            Cliente cliente = new Cliente();
+            cliente.buscar(this, txt_codigo.getText());
+            cliente.eliminar(this);
+            actualizarCampos(cliente);
+        }
+
+    }//GEN-LAST:event_btn_eliminarClienteActionPerformed
+
+    private void btn_actualizarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarClienteActionPerformed
+            
+        if (JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea actualizar la informacion este cliente? ", "Actualizar cliente", JOptionPane.YES_NO_OPTION) == 0)
+        {
+            Cliente cliente = new Cliente();
+            cliente.buscar(this, txt_buscarCliente.getText());
+            cliente.actualizar(this, txt_codigo.getText(), txt_nombre.getText(), txt_apellido.getText(), Integer.parseInt(txt_edad.getText()),
+                    txt_direccion.getText(), txt_telefono.getText());
+        }
+    }//GEN-LAST:event_btn_actualizarClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
