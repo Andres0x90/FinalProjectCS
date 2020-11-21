@@ -79,7 +79,7 @@ public class Cliente extends Persona
         
         if (this.codigo.equals(""))
         {
-            JOptionPane.showMessageDialog(parent, "Por favor busque un cliente valido");
+            JOptionPane.showMessageDialog(parent, "Por favor busque un cliente valido.");
         }
         else
         {
@@ -89,7 +89,7 @@ public class Cliente extends Persona
             this.edad = 0;
             this.direccion = "";
             this.telefono = "";            
-            JOptionPane.showMessageDialog(parent, "Cliente elminado correctamente");
+            JOptionPane.showMessageDialog(parent, "Cliente elminado correctamente.");
         }
     }
 

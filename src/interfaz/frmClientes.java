@@ -262,6 +262,14 @@ public class frmClientes extends javax.swing.JInternalFrame {
         btn_buscarCliente.setBorder(null);
         btn_buscarCliente.setBorderPainted(false);
         btn_buscarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_buscarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_buscarClienteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_buscarClienteMouseExited(evt);
+            }
+        });
         btn_buscarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscarClienteActionPerformed(evt);
@@ -275,6 +283,14 @@ public class frmClientes extends javax.swing.JInternalFrame {
         btn_registrarCliente.setBorder(null);
         btn_registrarCliente.setBorderPainted(false);
         btn_registrarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_registrarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_registrarClienteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_registrarClienteMouseExited(evt);
+            }
+        });
         btn_registrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_registrarClienteActionPerformed(evt);
@@ -289,6 +305,14 @@ public class frmClientes extends javax.swing.JInternalFrame {
         btn_actualizarCliente.setBorder(null);
         btn_actualizarCliente.setBorderPainted(false);
         btn_actualizarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_actualizarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_actualizarClienteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_actualizarClienteMouseExited(evt);
+            }
+        });
         btn_actualizarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_actualizarClienteActionPerformed(evt);
@@ -303,6 +327,14 @@ public class frmClientes extends javax.swing.JInternalFrame {
         btn_eliminarCliente.setBorder(null);
         btn_eliminarCliente.setBorderPainted(false);
         btn_eliminarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_eliminarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_eliminarClienteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_eliminarClienteMouseExited(evt);
+            }
+        });
         btn_eliminarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_eliminarClienteActionPerformed(evt);
@@ -605,8 +637,7 @@ public class frmClientes extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txt_buscarClienteFocusLost
 
-    private void actualizarCampos(Cliente cliente)
-    {
+    private void actualizarCampos(Cliente cliente) {
         txt_codigo.setText(cliente.getCodigo());
         txt_nombre.setText(cliente.getNombre());
         txt_apellido.setText(cliente.getApellido());
@@ -614,17 +645,20 @@ public class frmClientes extends javax.swing.JInternalFrame {
         txt_direccion.setText(cliente.getDireccion());
         txt_telefono.setText(cliente.getTelefono());
     }
-    
+
     private void btn_buscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarClienteActionPerformed
 
         if (txt_buscarCliente.getText().equals("Buscar cliente por código de registro")) {
             JOptionPane.showMessageDialog(null, "Es necesario el código de cliente que se desea buscar.");
-        } 
-        else 
-        {
+        } else {
             Cliente cliente = new Cliente();
             cliente.buscar(this, txt_buscarCliente.getText());
+            txt_codigo.setEditable(false);
             actualizarCampos(cliente);
+
+            if (txt_edad.getText().equals("0")) {
+                txt_edad.setText("");
+            }
         }
     }//GEN-LAST:event_btn_buscarClienteActionPerformed
 
@@ -638,12 +672,19 @@ public class frmClientes extends javax.swing.JInternalFrame {
                 || txt_telefono.getText().equals("") || txt_direccion.getText().equals("")) {
 
             JOptionPane.showMessageDialog(this, "Es necesario llenar todos los campos.");
-        }
-        else
-        {
+        } else {
             Cliente cliente = new Cliente(txt_codigo.getText(), txt_nombre.getText(), txt_apellido.getText(), Integer.parseInt(txt_edad.getText()),
-             txt_direccion.getText(), txt_telefono.getText());
+                    txt_direccion.getText(), txt_telefono.getText());
             cliente.registrar(this);
+
+            txt_codigo.requestFocus();
+            
+            txt_codigo.setText("");
+            txt_nombre.setText("");
+            txt_apellido.setText("");
+            txt_edad.setText("");
+            txt_telefono.setText("");
+            txt_direccion.setText("");
         }
     }//GEN-LAST:event_btn_registrarClienteActionPerformed
 
@@ -658,26 +699,90 @@ public class frmClientes extends javax.swing.JInternalFrame {
 
     private void btn_eliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarClienteActionPerformed
 
-        if (JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar este cliente? ", "Eliminar cliente", JOptionPane.YES_NO_OPTION) == 0)
-        {
-            Cliente cliente = new Cliente();
-            cliente.buscar(this, txt_codigo.getText());
-            cliente.eliminar(this);
-            actualizarCampos(cliente);
-        }
+        if (txt_codigo.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Es necesario digitar el código");
+        } else {
+            if (JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar este cliente? ", "Eliminar cliente", JOptionPane.YES_NO_OPTION) == 0) {
 
+                Cliente cliente = new Cliente();
+                cliente.buscar(this, txt_codigo.getText());
+                cliente.eliminar(this);
+
+                actualizarCampos(cliente);
+
+                txt_buscarCliente.setText("Buscar cliente por código de registro");
+                txt_codigo.requestFocus();
+                txt_codigo.setEditable(true);
+                
+                if (txt_edad.getText().equals("0")) {
+                    txt_edad.setText("");
+                }
+
+            }
+
+        }
     }//GEN-LAST:event_btn_eliminarClienteActionPerformed
 
     private void btn_actualizarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarClienteActionPerformed
-            
-        if (JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea actualizar la informacion este cliente? ", "Actualizar cliente", JOptionPane.YES_NO_OPTION) == 0)
-        {
-            Cliente cliente = new Cliente();
-            cliente.buscar(this, txt_buscarCliente.getText());
-            cliente.actualizar(this, txt_codigo.getText(), txt_nombre.getText(), txt_apellido.getText(), Integer.parseInt(txt_edad.getText()),
-                    txt_direccion.getText(), txt_telefono.getText());
+
+        if (txt_codigo.getText().equals("") || txt_nombre.getText().equals("") || txt_apellido.getText().equals("") || txt_edad.getText().equals("")
+                || txt_telefono.getText().equals("") || txt_direccion.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(this, "Es necesario que todos los campos esten con el dato indicado.");
+        } else {
+
+            if (JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea actualizar la informacion este cliente? ", "Actualizar cliente", JOptionPane.YES_NO_OPTION) == 0) {
+                Cliente cliente = new Cliente();
+                cliente.buscar(this, txt_buscarCliente.getText());
+                cliente.actualizar(this, txt_codigo.getText(), txt_nombre.getText(), txt_apellido.getText(), Integer.parseInt(txt_edad.getText()),
+                        txt_direccion.getText(), txt_telefono.getText());
+                
+            }
+
         }
+
+
     }//GEN-LAST:event_btn_actualizarClienteActionPerformed
+
+    private void btn_buscarClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_buscarClienteMouseEntered
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_buscarCliente.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_buscarClienteMouseEntered
+
+    private void btn_buscarClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_buscarClienteMouseExited
+        Color btnHoverOut = new Color(74, 79, 231);
+        btn_buscarCliente.setBackground(btnHoverOut);
+    }//GEN-LAST:event_btn_buscarClienteMouseExited
+
+    private void btn_registrarClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_registrarClienteMouseEntered
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_registrarCliente.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_registrarClienteMouseEntered
+
+    private void btn_registrarClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_registrarClienteMouseExited
+        Color btnHoverOut = new Color(74, 79, 231);
+        btn_registrarCliente.setBackground(btnHoverOut);
+    }//GEN-LAST:event_btn_registrarClienteMouseExited
+
+    private void btn_actualizarClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_actualizarClienteMouseEntered
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_actualizarCliente.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_actualizarClienteMouseEntered
+
+    private void btn_actualizarClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_actualizarClienteMouseExited
+        Color btnHoverOut = new Color(74, 79, 231);
+        btn_actualizarCliente.setBackground(btnHoverOut);
+    }//GEN-LAST:event_btn_actualizarClienteMouseExited
+
+    private void btn_eliminarClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_eliminarClienteMouseEntered
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_eliminarCliente.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_eliminarClienteMouseEntered
+
+    private void btn_eliminarClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_eliminarClienteMouseExited
+        Color btnHoverOut = new Color(74, 79, 231);
+        btn_eliminarCliente.setBackground(btnHoverOut);
+    }//GEN-LAST:event_btn_eliminarClienteMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
