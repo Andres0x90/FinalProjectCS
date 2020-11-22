@@ -15,7 +15,7 @@ create table Cliente(
 	codigo varchar(15) primary key,
 	nombre varchar(30),
 	apellido varchar(30),
-	edad int,
+	edad int not null,
 	dir varchar(30),
 	telefono varchar(15)
 )
@@ -25,21 +25,24 @@ create table empleado(
 	nombre varchar(30),
 	apellido varchar(35),
 	edad int,
+	fecha_nacimiento varchar(30),
 	telefono varchar(15),
-	fecha_nacimiento date,
 	usuario varchar(30),
 	contrasena varchar(30)
 )
 go
 create table venta(
+	codigo int not null IDENTITY(1,1),
 	cod_emp varchar(15) foreign key references empleado(codigo),
 	cod_cli varchar(15) foreign key references cliente(codigo),
 	cod_art varchar(15) foreign key references articulo(codigo),
-	codigo int not null IDENTITY(1,1),
+	fecha varchar(30),
+	hora varchar(10),
 	cant int,
 	valor float
 )
 go
+
 
 
 create trigger descargo
@@ -57,16 +60,18 @@ go
 
 /*
 Select * from empleado;
-insert into empleado(codigo, nombre,apellido,edad,telefono,usuario,contrasena) values ('0101010', 'empleado1', 'algunofeo', 20, '9996542452', 'emp1','123456789');
-
+insert into empleado values ('0101010', 'empleado1', 'algunofeo', 20,'2001-08-08','9996542452', 'emp1','123456789');
 select * from articulo;
 insert into articulo values('05GOW','Dios de la guerra','Accion',15000,100,'videojuego');
-insert into articulo values('01MAT','MATRIX 1999','Ficción',250000,5,'pelicula');
-
+insert into articulo values('01MAT','MATRIX 1999','FicciÃ³n',250000,5,'pelicula');
 select * from cliente;
-insert into cliente values('101', 'raquel','desca','cll 25b # 25 - 25','0000000');
-
+insert into cliente values('101', 'raquel','desca',25,'cll 25b # 25 - 25','0000000');
+insert into cliente values('121', 'Anak','Zahard',24,'cll 15z # 2 - 25','15915912');
 select * from venta;
-insert into venta values('0101010','101','05GOW',25,375000);
-insert into venta values('0101010','101','01MAT',2,500000);
+insert into venta values('0101010','101','05GOW','05-05-2020','00:00',25,375000);
+insert into venta values('0101010','101','01MAT','08-05-2020','02:00',2,500000);
+select * from venta inner join empleado on venta.cod_emp = empleado.codigo join cliente on venta.cod_cli = cliente.codigo;
+select * from empleado;
+Select * from venta where cod_emp = (select codigo from empleado where codigo=@codigo_empleado);
+Select * from empleado where codigo = (select cod_emp from venta where (cod_art = @cod_art and codigo = @codigo_venta));
 */
