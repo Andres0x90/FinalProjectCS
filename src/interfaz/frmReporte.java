@@ -1,15 +1,19 @@
 package interfaz;
 
-import java.awt.BorderLayout;
+import database.Crud;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.sql.Connection; //borrar luego
+import java.sql.DriverManager; //borrar luego
+import java.sql.ResultSet; //borrar luego
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel; //Para crear el modelo de la TABLA
-import javax.swing.table.JTableHeader;
 
 public class frmReporte extends javax.swing.JInternalFrame {
 
@@ -18,6 +22,23 @@ public class frmReporte extends javax.swing.JInternalFrame {
      */
     public frmReporte() {
         initComponents();
+    }
+
+    Connection con = null;
+    ResultSet rs = null;
+    String SQL = "";
+    String ventas[] = new String[6];
+
+    ///Borrar luego todo lo referente a base de datos
+    //METODO PARA ESTABLECER LA CONEXION
+    public void Conectar() {
+        try {
+            //CREAR LA VARIABLE PARA LA CADENA DE CONEXION
+            String cadenaConexion = "jdbc:sqlserver://;database=videotienda;integratedSecurity=true";
+            con = DriverManager.getConnection(cadenaConexion);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+        }
     }
 
     //Detectar la tecla enter
@@ -637,30 +658,63 @@ public class frmReporte extends javax.swing.JInternalFrame {
 
         switch (resultLista) {
             case "Mostrar clientes":
-                String titulosClientes[] = {"cliente 1", "cliente 2", "cliente 3", "cliente 4"}; //titulo de las columnas
-                String info = "1,2,3,4"; // Información que se va a enviar a la tabla
-                String[] lineaClientes; // Array que almacenara la información separa por , en cada indice
-                DefaultTableModel modeloCliente = new DefaultTableModel(); //Crear el modelo a la tabla
+                Conectar();
+                try {
+                    //DECLARA EL MODELO PARA LLENAR LA TABLA
+                    DefaultTableModel modelo = new DefaultTableModel();
+                    modelo.addColumn("Código");
+                    modelo.addColumn("Nombre");
+                    modelo.addColumn("Apellido");
+                    modelo.addColumn("Edad");
+                    modelo.addColumn("Dirección");
+                    modelo.addColumn("Teléfono");
+                    SQL = "SELECT * from cliente";
 
-                modeloCliente.setColumnIdentifiers(titulosClientes); //Asignar titulos a la tabla
-                lineaClientes = info.split(",");
-                modeloCliente.addRow(lineaClientes); //Asignar el mododelo a la tabla
-                tabla_ventas.setModel(modeloCliente);
-                ;
+                    Statement stmt = con.createStatement();
+                    ResultSet rs = stmt.executeQuery(SQL);
+                    while (rs.next()) {
+                        for (int i = 0; i < ventas.length; i++) {
+                            ventas[i] = rs.getString((i + 1));
+                        }
+                        modelo.addRow(ventas);
+                    }
+                    tabla_ventas.setModel(modelo);
+                    rs.close();
+                    stmt.close();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+                }
                 break;
             case "Mostrar ventas":
-                String titulosVentas[] = {"código", "cod_emp", "cod_cli", "cod_art", "Cant", "Valor", "Fecha", "Hora"}; //titulo de las columnas
-                String infoVentas1 = "fila 1,002,001,003,10,150000,02-05-2020,8:30:36"; // Información que se va a enviar a la tabla
-                String infoVentas2 = "fila 2,003,004,005,2,3000,05-05-2010,8:20:36"; // Información que se va a enviar a la tabla
-                String[] lineaVentas; // Array que almacenara la información separa por , en cada indice
-                DefaultTableModel modeloVenta = new DefaultTableModel(); //Crear el modelo a la tabla
+                Conectar();
+                try {
+                    //DECLARA EL MODELO PARA LLENAR LA TABLA
+                    DefaultTableModel modelo = new DefaultTableModel();
+                    modelo.addColumn("Código");
+                    modelo.addColumn("cod_emp");
+                    modelo.addColumn("cod_clie");
+                    modelo.addColumn("cod_art");
+                    modelo.addColumn("Fecha");
+                    modelo.addColumn("Hora");
+                    //modelo.addColumn("Vant");
+                    //modelo.addColumn("Valor");
 
-                modeloVenta.setColumnIdentifiers(titulosVentas); //Asignar titulos a la tabla
-                String[] lineaVentas1 = infoVentas1.split(",");
-                String[] lineaVentas2 = infoVentas2.split(",");
-                modeloVenta.addRow(lineaVentas1); //Asignar el mododelo a la tabla
-                modeloVenta.addRow(lineaVentas2);
-                tabla_ventas.setModel(modeloVenta);
+                    SQL = "SELECT * from venta";
+
+                    Statement stmt = con.createStatement();
+                    ResultSet rs = stmt.executeQuery(SQL);
+                    while (rs.next()) {
+                        for (int i = 0; i < ventas.length; i++) {
+                            ventas[i] = rs.getString((i + 1));
+                        }
+                        modelo.addRow(ventas);
+                    }
+                    tabla_ventas.setModel(modelo);
+                    rs.close();
+                    stmt.close();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+                }
         }
 
         if (!(list_buscador.getSelectedItem() == "Mostrar ventas")) {
@@ -690,24 +744,8 @@ public class frmReporte extends javax.swing.JInternalFrame {
         } else {
 
             if (list_buscador.getSelectedItem() == "Mostrar ventas") {
-
-                //TABLA CLIENTES
-                String titulosClientes[] = {"Codigo", "Nombre", "Apellido", "Edad", "Dir", "Teléfono"}; //titulo de las columnas
-                String infoCliente
-                        = tabla_ventas.getValueAt(fila, 2).toString()
-                        + ",Andrés"
-                        + ",Serna Muñoz"
-                        + ",24"
-                        + ",Diagonal 58"
-                        + ",601-00-00";
-
-                String[] lineaClientes; // Array que almacenara la información separa por , en cada indice
-                DefaultTableModel modeloCliente = new DefaultTableModel(); //Crear el modelo a la tabla
-
-                modeloCliente.setColumnIdentifiers(titulosClientes); //Asignar titulos a la tabla
-                String[] lineaCliente = infoCliente.split(",");
-                modeloCliente.addRow(lineaCliente); //Asignar el mododelo a la tabla
-                tabla_clienteInterna.setModel(modeloCliente);
+     
+               
 
                 //TABLA EMPLEADOS
                 String titulosEmpleados[] = {"Codigo", "Nombre", "Apellido", "Fecha nacimiento", "Teléfono", "Usuario", "Contraseña"}; //titulo de las columnas
