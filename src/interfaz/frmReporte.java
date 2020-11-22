@@ -590,7 +590,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
         btn_buscar.setBackground(new java.awt.Color(74, 79, 231));
         btn_buscar.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         btn_buscar.setForeground(new java.awt.Color(255, 255, 255));
-        btn_buscar.setText("Realizar búsqueda");
+        btn_buscar.setText("Filtrar búsqueda");
         btn_buscar.setBorder(null);
         btn_buscar.setBorderPainted(false);
         btn_buscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -620,7 +620,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Roboto", 3, 12)); // NOI18N
-        jLabel3.setText("Consultar mediante el código del empleado o articulo. *empleado:codigo o articulo:codigo");
+        jLabel3.setText("Consultar mediante el código del empleado o articulo. * [ empleado:codigo o articulo:codigo ]");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -992,7 +992,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
         if (verificarInputBuscarEmpleadoxArticulo()) {
             realizarBusquedaEmpleadoxArticulo();
         } else {
-            System.out.println("Digitar el tipo de búsqueda y código correspondiente");
+            JOptionPane.showMessageDialog(this, "Digitar el tipo de búsqueda y código correspondiente, empleado:codigo o articulo:codigo");
         }
 
     }//GEN-LAST:event_btn_buscarActionPerformed
@@ -1054,7 +1054,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
             if (verificarInputBuscarEmpleadoxArticulo()) {
                 realizarBusquedaEmpleadoxArticulo();
             } else {
-                System.out.println("Digitar el tipo de búsqueda y código correspondiente");
+                JOptionPane.showMessageDialog(this, "Digitar el tipo de búsqueda y código correspondiente, empleado:codigo o articulo:codigo");
             }
 
         }
