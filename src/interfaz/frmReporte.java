@@ -1,44 +1,33 @@
 package interfaz;
 
-import database.Crud;
-import java.awt.Color;
+import database.Reportes;
+
 import java.awt.event.KeyEvent;
-import java.sql.Connection; //borrar luego
-import java.sql.DriverManager; //borrar luego
-import java.sql.ResultSet; //borrar luego
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel; //Para crear el modelo de la TABLA
+import javax.swing.table.DefaultTableModel;
 
 public class frmReporte extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form frmReporte
-     */
+    ArrayList<String> datos = new ArrayList();
+
+    //Tabla para clientes,modelos,articulos,ventas
+    DefaultTableModel modeloGeneral = new DefaultTableModel();
+
+    DefaultTableModel modeloIDcliente = new DefaultTableModel();
+    DefaultTableModel modeloIDempleado = new DefaultTableModel();
+    DefaultTableModel modeloIDarticulo = new DefaultTableModel();
+
     public frmReporte() {
         initComponents();
-    }
-
-    Connection con = null;
-    ResultSet rs = null;
-    String SQL = "";
-    String ventas[] = new String[6];
-
-    ///Borrar luego todo lo referente a base de datos
-    //METODO PARA ESTABLECER LA CONEXION
-    public void Conectar() {
-        try {
-            //CREAR LA VARIABLE PARA LA CADENA DE CONEXION
-            String cadenaConexion = "jdbc:sqlserver://;database=videotienda;integratedSecurity=true";
-            con = DriverManager.getConnection(cadenaConexion);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-        }
     }
 
     //Detectar la tecla enter
@@ -652,69 +641,145 @@ public class frmReporte extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void listarTablas(String query) throws SQLException {
+
+        Reportes mostrarClientes = new Reportes();
+        String SQL = query;
+        ResultSet rs = mostrarClientes.listar(SQL);
+
+        modeloGeneral.setRowCount(0);
+
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int numberOfColumns = rsmd.getColumnCount();
+
+        String[] data = new String[numberOfColumns];
+
+        System.out.println("Columas de la consulta " + numberOfColumns);
+
+        while (rs.next()) {
+            for (int i = 0; i < data.length; i++) {
+                data[i] = rs.getString((i + 1));
+            }
+            modeloGeneral.addRow(data);
+        }
+        rs.close();
+    }
+
+    private void filtrarCodigo(String query, DefaultTableModel modelo) throws SQLException {
+
+        Reportes filtrarID = new Reportes();
+        String SQL = query;
+        ResultSet rs = filtrarID.buscar(query);
+
+        modelo.setRowCount(0);
+
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int numberOfColumns = rsmd.getColumnCount();
+
+        String[] data = new String[numberOfColumns];
+
+        System.out.println("Columas de la consulta " + numberOfColumns);
+
+        while (rs.next()) {
+            for (int i = 0; i < data.length; i++) {
+                data[i] = rs.getString((i + 1));
+            }
+            modelo.addRow(data);
+        }
+        rs.close();
+    }
+
     private void btn_filtrarListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_filtrarListaActionPerformed
 
         String resultLista = list_buscador.getSelectedItem().toString();
 
         switch (resultLista) {
-            case "Mostrar clientes":
-                Conectar();
+            case "Mostrar clientes": {
                 try {
-                    //DECLARA EL MODELO PARA LLENAR LA TABLA
-                    DefaultTableModel modelo = new DefaultTableModel();
-                    modelo.addColumn("Código");
-                    modelo.addColumn("Nombre");
-                    modelo.addColumn("Apellido");
-                    modelo.addColumn("Edad");
-                    modelo.addColumn("Dirección");
-                    modelo.addColumn("Teléfono");
-                    SQL = "SELECT * from cliente";
 
-                    Statement stmt = con.createStatement();
-                    ResultSet rs = stmt.executeQuery(SQL);
-                    while (rs.next()) {
-                        for (int i = 0; i < ventas.length; i++) {
-                            ventas[i] = rs.getString((i + 1));
-                        }
-                        modelo.addRow(ventas);
-                    }
-                    tabla_ventas.setModel(modelo);
-                    rs.close();
-                    stmt.close();
-                } catch (SQLException e) {
-                    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+                    String titulosClientes[] = {
+                        "Codigo",
+                        "Nombre",
+                        "Apellido",
+                        "Edad",
+                        "Dirección",
+                        "Teléfono",};
+                    modeloGeneral.setColumnIdentifiers(titulosClientes); //Asignar titulos a la tabla
+
+                    listarTablas("SELECT * from cliente");
+                    tabla_ventas.setModel(modeloGeneral);
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(frmReporte.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                break;
-            case "Mostrar ventas":
-                Conectar();
+            }
+            break;
+
+            case "Mostrar empleados": {
                 try {
-                    //DECLARA EL MODELO PARA LLENAR LA TABLA
-                    DefaultTableModel modelo = new DefaultTableModel();
-                    modelo.addColumn("Código");
-                    modelo.addColumn("cod_emp");
-                    modelo.addColumn("cod_clie");
-                    modelo.addColumn("cod_art");
-                    modelo.addColumn("Fecha");
-                    modelo.addColumn("Hora");
-                    //modelo.addColumn("Vant");
-                    //modelo.addColumn("Valor");
+                    String titulosEmpleados[] = {
+                        "Codigo",
+                        "Nombre",
+                        "Apellido",
+                        "Edad",
+                        "Fecha nacimiento",
+                        "Teléfono",
+                        "Usuario",
+                        "Contraseña"
+                    };
+                    modeloGeneral.setColumnIdentifiers(titulosEmpleados); //Asignar titulos a la tabla
 
-                    SQL = "SELECT * from venta";
+                    listarTablas("SELECT * from empleado");
+                    tabla_ventas.setModel(modeloGeneral);
 
-                    Statement stmt = con.createStatement();
-                    ResultSet rs = stmt.executeQuery(SQL);
-                    while (rs.next()) {
-                        for (int i = 0; i < ventas.length; i++) {
-                            ventas[i] = rs.getString((i + 1));
-                        }
-                        modelo.addRow(ventas);
-                    }
-                    tabla_ventas.setModel(modelo);
-                    rs.close();
-                    stmt.close();
-                } catch (SQLException e) {
-                    JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
+                } catch (SQLException ex) {
+                    Logger.getLogger(frmReporte.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            }
+
+            break;
+            case "Mostrar articulos": {
+                try {
+                    String titulosEmpleados[] = {
+                        "Codigo",
+                        "Titulo",
+                        "Género",
+                        "Precio",
+                        "Cantidad",
+                        "Tipo"
+                    };
+                    modeloGeneral.setColumnIdentifiers(titulosEmpleados); //Asignar titulos a la tabla
+
+                    listarTablas("SELECT * from articulo");
+                    tabla_ventas.setModel(modeloGeneral);
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(frmReporte.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            break;
+            case "Mostrar ventas": {
+                try {
+                    String titulosEmpleados[] = {
+                        "Codigo",
+                        "Cod_emp",
+                        "Cod_cli",
+                        "Cod_art",
+                        "Fecha",
+                        "Hora",
+                        "Cantidad",
+                        "Valor"
+                    };
+                    modeloGeneral.setColumnIdentifiers(titulosEmpleados); //Asignar titulos a la tabla
+
+                    listarTablas("SELECT * from venta");
+                    tabla_ventas.setModel(modeloGeneral);
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(frmReporte.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            break;
         }
 
         if (!(list_buscador.getSelectedItem() == "Mostrar ventas")) {
@@ -744,45 +809,74 @@ public class frmReporte extends javax.swing.JInternalFrame {
         } else {
 
             if (list_buscador.getSelectedItem() == "Mostrar ventas") {
-     
-               
 
-                //TABLA EMPLEADOS
-                String titulosEmpleados[] = {"Codigo", "Nombre", "Apellido", "Fecha nacimiento", "Teléfono", "Usuario", "Contraseña"}; //titulo de las columnas
-                String infoEmpleado
-                        = tabla_ventas.getValueAt(fila, 1).toString()
-                        + ",Edwin"
-                        + ",Palacios"
-                        + ",10-05-2020"
-                        + ",600-02-02"
-                        + ",admin"
-                        + ",123";
+                //Tabla ID:CLIENTE
+                {
+                    try {
 
-                String[] lineaEmpleados; // Array que almacenara la información separa por , en cada indice
-                DefaultTableModel modeloEmpleado = new DefaultTableModel(); //Crear el modelo a la tabla
+                        String titulosClientes[] = {
+                            "Codigo",
+                            "Nombre",
+                            "Apellido",
+                            "Edad",
+                            "Dirección",
+                            "Teléfono"
+                        };
+                        modeloIDcliente.setColumnIdentifiers(titulosClientes); //Asignar titulos a la tabla
 
-                modeloEmpleado.setColumnIdentifiers(titulosEmpleados); //Asignar titulos a la tabla
-                lineaEmpleados = infoEmpleado.split(",");
-                modeloEmpleado.addRow(lineaEmpleados); //Asignar el mododelo a la tabla
-                tabla_empleadoInterna.setModel(modeloEmpleado);
+                        filtrarCodigo("SELECT cliente.codigo, cliente.nombre, cliente.apellido, cliente.edad, cliente.dir, cliente.telefono from venta inner join cliente on " + tabla_ventas.getValueAt(fila, 2).toString() + "= cliente.codigo", modeloIDcliente);
+                        tabla_clienteInterna.setModel(modeloIDcliente);
 
-                //TABLA ARTICULO
-                String titulosArticulos[] = {"Codigo", "Titulo", "Género", "Precio", "Cantidad", "Tipo"}; //titulo de las columnas
-                String infoArticulo
-                        = tabla_ventas.getValueAt(fila, 3).toString()
-                        + ",Intelestelar"
-                        + ",Ciencia ficción"
-                        + ",50000"
-                        + ",2"
-                        + ",Pelicula";
+                    } catch (SQLException ex) {
+                        Logger.getLogger(frmReporte.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
 
-                String[] lineaArticulo; // Array que almacenara la información separa por , en cada indice
-                DefaultTableModel modeloArticulo = new DefaultTableModel(); //Crear el modelo a la tabla
+                //Tabla ID: EMPLEADO               
+                {
+                    try {
 
-                modeloArticulo.setColumnIdentifiers(titulosArticulos); //Asignar titulos a la tabla
-                lineaArticulo = infoArticulo.split(",");
-                modeloArticulo.addRow(lineaArticulo); //Asignar el mododelo a la tabla
-                tabla_articuloInterna.setModel(modeloArticulo);
+                        String titulosEmpleados[] = {
+                            "Codigo",
+                            "Cod_emp",
+                            "Cod_cli",
+                            "Cod_art",
+                            "Fecha",
+                            "Hora",
+                            "Cantidad",
+                            "Valor"
+                        };
+                        modeloIDempleado.setColumnIdentifiers(titulosEmpleados); //Asignar titulos a la tabla
+
+                        filtrarCodigo("SELECT empleado.codigo, empleado.nombre, empleado.apellido, empleado.edad, empleado.fecha_nacimiento, empleado.telefono, empleado.usuario, empleado.contrasena from venta inner join empleado on " + tabla_ventas.getValueAt(fila, 1).toString() + "= empleado.codigo", modeloIDempleado);
+                        tabla_empleadoInterna.setModel(modeloIDempleado);
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(frmReporte.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+
+                //Tabla ID: ARTICULO               
+                {
+                    try {
+
+                        String titulosArticulo[] = {
+                            "Codigo",
+                            "Titulo",
+                            "genero",
+                            "precio",
+                            "cantidad",
+                            "tipo"
+                        };
+                        modeloIDarticulo.setColumnIdentifiers(titulosArticulo); //Asignar titulos a la tabla
+
+                        filtrarCodigo("SELECT articulo.codigo, articulo.titulo, articulo.genero, articulo.precio, articulo.cantidad, articulo.tipo from venta inner join articulo on " + tabla_ventas.getValueAt(fila, 3).toString() + "= articulo.codigo", modeloIDarticulo);
+                        tabla_articuloInterna.setModel(modeloIDarticulo);
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(frmReporte.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
 
             }
 
