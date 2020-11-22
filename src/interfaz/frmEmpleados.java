@@ -1,6 +1,7 @@
 package interfaz;
 
 // Redimensionar imagenes
+import backend.Empleado;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -119,7 +120,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         lbl_codigo.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_codigo.setText("Código:");
         lbl_codigo.setToolTipText("");
-        lbl_codigo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_codigo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_codigo.setName(""); // NOI18N
         lbl_codigo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -141,7 +142,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
 
         lbl_nombre.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_nombre.setText("Nombre:");
-        lbl_nombre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_nombre.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_nombre.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_nombreMouseClicked(evt);
@@ -159,7 +160,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
 
         lbl_apellido.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_apellido.setText("Apellido:");
-        lbl_apellido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_apellido.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_apellido.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_apellidoMouseClicked(evt);
@@ -177,7 +178,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
 
         lbl_edad.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_edad.setText("Edad:");
-        lbl_edad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_edad.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_edad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_edadMouseClicked(evt);
@@ -203,7 +204,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
 
         lbl_fechaNacimiento.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_fechaNacimiento.setText("Fecha de nacimiento:");
-        lbl_fechaNacimiento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_fechaNacimiento.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_fechaNacimiento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_fechaNacimientoMouseClicked(evt);
@@ -221,7 +222,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
 
         lbl_telefono.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_telefono.setText("Teléfono:");
-        lbl_telefono.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_telefono.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_telefono.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_telefonoMouseClicked(evt);
@@ -268,7 +269,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         btn_buscarCliente.setText("Buscar empleado");
         btn_buscarCliente.setBorder(null);
         btn_buscarCliente.setBorderPainted(false);
-        btn_buscarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_buscarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_buscarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscarClienteActionPerformed(evt);
@@ -281,7 +282,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         btn_registrarCliente.setText("Registrar empleado");
         btn_registrarCliente.setBorder(null);
         btn_registrarCliente.setBorderPainted(false);
-        btn_registrarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_registrarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_registrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_registrarClienteActionPerformed(evt);
@@ -295,7 +296,12 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         btn_actualizarEmpleado.setToolTipText("");
         btn_actualizarEmpleado.setBorder(null);
         btn_actualizarEmpleado.setBorderPainted(false);
-        btn_actualizarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_actualizarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_actualizarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actualizarEmpleadoActionPerformed(evt);
+            }
+        });
 
         btn_eliminarEmpleado.setBackground(new java.awt.Color(74, 79, 231));
         btn_eliminarEmpleado.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
@@ -304,11 +310,16 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         btn_eliminarEmpleado.setToolTipText("");
         btn_eliminarEmpleado.setBorder(null);
         btn_eliminarEmpleado.setBorderPainted(false);
-        btn_eliminarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_eliminarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_eliminarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarEmpleadoActionPerformed(evt);
+            }
+        });
 
         lbl_apellido1.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_apellido1.setText("Contraseña:");
-        lbl_apellido1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_apellido1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_apellido1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_apellido1MouseClicked(evt);
@@ -326,7 +337,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
 
         lbl_apellido2.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_apellido2.setText("Usuario:");
-        lbl_apellido2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_apellido2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_apellido2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_apellido2MouseClicked(evt);
@@ -633,10 +644,25 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         txt_buscarEmpleado.selectAll();
     }//GEN-LAST:event_txt_buscarEmpleadoMouseClicked
 
+        private void actualizarCampos(Empleado empleado) {
+        txt_codigo.setText(empleado.getCodigo());
+        txt_nombre.setText(empleado.getNombre());
+        txt_apellido.setText(empleado.getApellido());
+        txt_edad.setText(Integer.toString(empleado.getEdad()));
+        txt_telefono.setText(empleado.getTelefono());
+        txt_fechaNacimiento.setText(empleado.getFecha_nacimiento());
+        txt_usuario.setText(empleado.getUsuario());
+        txt_contrasena.setText(empleado.getContrasena());
+        
+        if (empleado.getEdad() == 0) {
+                txt_edad.setText("");
+            }
+    }
+    
     private void txt_buscarEmpleadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_buscarEmpleadoFocusLost
         if (txt_buscarEmpleado.getText().equals("")) {
 
-            txt_buscarEmpleado.setText("Buscar cliente por código de registro");
+            txt_buscarEmpleado.setText("Buscar empleado por código de registro");
             txt_codigo.setText("");
             txt_nombre.setText("");
             txt_apellido.setText("");
@@ -654,15 +680,9 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         if (txt_buscarEmpleado.getText().equals("Buscar empleado por código de registro")) {
             JOptionPane.showMessageDialog(this, "Es necesario el código de empleado que se desea buscar.");
         } else {
-            //Informacion de prueba : BORRAR         
-            txt_codigo.setText("1");
-            txt_nombre.setText("Andres");
-            txt_apellido.setText("Serna");
-            txt_edad.setText("24");
-            txt_telefono.setText("321-888-6044");
-            txt_fechaNacimiento.setText("Diagonal 58 # 84 52 - Niquia");
-
-            //Evitar poder Actualizar el código
+            Empleado empleado = new Empleado();
+            empleado.buscar(this, txt_buscarEmpleado.getText());
+            actualizarCampos(empleado);
             txt_codigo.setEditable(false);
 
         }
@@ -675,9 +695,25 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
     private void btn_registrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarClienteActionPerformed
         
         if( txt_codigo.getText().equals("") || txt_nombre.getText().equals("") || txt_apellido.getText().equals("") || txt_edad.getText().equals("") ||
-            txt_telefono.getText().equals("") || txt_fechaNacimiento.getText().equals("")) {
+            txt_telefono.getText().equals("") || txt_fechaNacimiento.getText().equals("")) 
+        {
             
             JOptionPane.showMessageDialog(this, "Es necesario llenar todos los campos.");
+        }
+        else
+        {
+            Empleado empleado = new Empleado(txt_codigo.getText(), txt_nombre.getText(), txt_apellido.getText(), Integer.parseInt(txt_edad.getText()),
+                    txt_telefono.getText(), txt_fechaNacimiento.getText(),txt_usuario.getText(), txt_contrasena.getText());
+            empleado.registrar(this);
+            txt_codigo.requestFocus();
+            txt_codigo.setText("");
+            txt_nombre.setText("");
+            txt_apellido.setText("");
+            txt_edad.setText("");
+            txt_telefono.setText("");
+            txt_fechaNacimiento.setText("");
+            txt_usuario.setText("");
+            txt_contrasena.setText("");
         }
     }//GEN-LAST:event_btn_registrarClienteActionPerformed
 
@@ -712,6 +748,29 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
     private void txt_buscarEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarEmpleadoKeyTyped
         inputNumeros(evt);
     }//GEN-LAST:event_txt_buscarEmpleadoKeyTyped
+
+    private void btn_eliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarEmpleadoActionPerformed
+
+       if (JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar este empleado? ", "Eliminar empleado", JOptionPane.YES_NO_OPTION) == 0) 
+       {
+            Empleado empleado = new Empleado();
+            empleado.buscar(this, txt_codigo.getText());
+            empleado.eliminar(this);
+            actualizarCampos(empleado);
+       }
+    }//GEN-LAST:event_btn_eliminarEmpleadoActionPerformed
+
+    private void btn_actualizarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarEmpleadoActionPerformed
+        
+        if (JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea actualizar la informacion este empleado? ", "Actualizar empleado", JOptionPane.YES_NO_OPTION) == 0)
+        {
+            Empleado empleado = new Empleado();
+            empleado.buscar(this, txt_codigo.getText());
+            empleado.actualizar(this, txt_codigo.getText(), txt_nombre.getText(), txt_apellido.getText(), Integer.parseInt(txt_edad.getText()),
+                    txt_telefono.getText(), txt_fechaNacimiento.getText(),txt_usuario.getText(), txt_contrasena.getText());
+        }
+       
+    }//GEN-LAST:event_btn_actualizarEmpleadoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

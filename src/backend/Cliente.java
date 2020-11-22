@@ -7,6 +7,8 @@ package backend;
 import database.*;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -92,7 +94,17 @@ public class Cliente extends Persona
             JOptionPane.showMessageDialog(parent, "Cliente elminado correctamente.");
         }
     }
-
+    
+    @Override
+    public void actualizar(Component parent,String codigo,String nombre, String apellido, int edad, String telefono, String fechaN, String usuario, String contrasena)
+    {
+        try {
+            throw new Exception("Error. Funcion no disponible en esta clase");
+        } catch (Exception ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     @Override
     public void actualizar(Component parent,String codigo,String nombre, String apellido, int edad,String direccion, String telefono) 
     {
