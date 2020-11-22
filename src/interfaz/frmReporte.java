@@ -17,14 +17,56 @@ import javax.swing.table.DefaultTableModel;
 
 public class frmReporte extends javax.swing.JInternalFrame {
 
-    ArrayList<String> datos = new ArrayList();
+    //Titulo de las tablas
+    String tituloVenta[] = {
+        "Codigo",
+        "Cod_emp",
+        "Cod_cli",
+        "Cod_art",
+        "Fecha",
+        "Hora",
+        "Cantidad",
+        "Valor"
+    };
+
+    String titulosClientes[] = {
+        "Codigo",
+        "Nombre",
+        "Apellido",
+        "Edad",
+        "Dirección",
+        "Teléfono",};
+
+    String titulosEmpleados[] = {
+        "Codigo",
+        "Nombre",
+        "Apellido",
+        "Edad",
+        "Fecha nacimiento",
+        "Teléfono",
+        "Usuario",
+        "Contraseña"
+    };
+
+    String titulosArticulos[] = {
+        "Codigo",
+        "Titulo",
+        "Género",
+        "Precio",
+        "Cantidad",
+        "Tipo"
+    };
 
     //Tabla para clientes,modelos,articulos,ventas
     DefaultTableModel modeloGeneral = new DefaultTableModel();
 
+    //Tablas del modelo general
     DefaultTableModel modeloIDcliente = new DefaultTableModel();
     DefaultTableModel modeloIDempleado = new DefaultTableModel();
     DefaultTableModel modeloIDarticulo = new DefaultTableModel();
+
+    DefaultTableModel modeloBusquedaGeneral = new DefaultTableModel();
+    DefaultTableModel modeloBusquedaInfo = new DefaultTableModel();
 
     public frmReporte() {
         initComponents();
@@ -60,6 +102,48 @@ public class frmReporte extends javax.swing.JInternalFrame {
         return result;
     }
 
+    private void filtrarEmpleadoxArticulo(String codigo) throws SQLException {
+
+        Reportes ventasVendedor = new Reportes();
+        ResultSet rs = ventasVendedor.ventasXVendedor(codigo);
+
+        modeloBusquedaGeneral.setRowCount(0);
+
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int numberOfColumns = rsmd.getColumnCount();
+
+        String[] data = new String[numberOfColumns];
+
+        while (rs.next()) {
+            for (int i = 0; i < data.length; i++) {
+                data[i] = rs.getString((i + 1));
+            }
+            modeloBusquedaGeneral.addRow(data);
+        }
+        rs.close();
+    }
+
+    private void DatosVendedores(String codigo) throws SQLException {
+
+        Reportes vendedoresxProducto = new Reportes();
+        ResultSet rs = vendedoresxProducto.DatosVendedores(codigo);
+
+        modeloBusquedaInfo.setRowCount(0);
+
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int numberOfColumns = rsmd.getColumnCount();
+
+        String[] data = new String[numberOfColumns];
+
+        while (rs.next()) {
+            for (int i = 0; i < data.length; i++) {
+                data[i] = rs.getString((i + 1));
+            }
+            modeloBusquedaInfo.addRow(data);
+        }
+        rs.close();
+    }
+
     //Realizar busqued para las tablas Empleados X Articulos
     private void realizarBusquedaEmpleadoxArticulo() {
         String consulta = buscadorReporte.getText();
@@ -67,22 +151,54 @@ public class frmReporte extends javax.swing.JInternalFrame {
         String tipoBusqueda = separador[0].trim().toLowerCase();
         String codigoBusqueda = separador[1].trim();
 
-        System.out.println("separador: " + separador);
+        switch (tipoBusqueda) {
+            case "empleado": {
+                try {
 
-        System.out.println("Buscar id empleado en la tabla ventas");
+                    txt_infoBusqueda.setText("Información del articulo");
 
-        String titulosEmpleadoVentas[] = {"código", "cod_emp", "cod_cli", "cod_art", "Cant", "Valor", "Fecha", "Hora"}; //titulo de las columnas
-        String infoEmpleadoVentas1 = "fila 1,002,001,003,10,150000,02-05-2020,8:30:36"; // Información que se va a enviar a la tabla
-        String infoEmpleadoVentas2 = "fila 2,003,004,005,2,3000,05-05-2010,8:20:36"; // Información que se va a enviar a la tabla
-        String[] lineaEmpleadoVentas; // Array que almacenara la información separa por , en cada indice
-        DefaultTableModel modeloEmpleadoVentas = new DefaultTableModel(); //Crear el modelo a la tabla
+                    modeloBusquedaGeneral.setColumnIdentifiers(tituloVenta); //Asignar titulos a la tabla
 
-        modeloEmpleadoVentas.setColumnIdentifiers(titulosEmpleadoVentas); //Asignar titulos a la tabla
-        String[] lineaEmpleadoVentas1 = infoEmpleadoVentas1.split(",");
-        String[] lineaEmpleadoVentas2 = infoEmpleadoVentas2.split(",");
-        modeloEmpleadoVentas.addRow(lineaEmpleadoVentas1); //Asignar el mododelo a la tabla
-        modeloEmpleadoVentas.addRow(lineaEmpleadoVentas2);
-        tabla_resultadoGeneral.setModel(modeloEmpleadoVentas);
+                    filtrarEmpleadoxArticulo(codigoBusqueda);
+                    tabla_resultadoGeneral.setModel(modeloBusquedaGeneral);
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(frmReporte.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            break;
+
+            case "articulo": {
+
+                try {
+
+                    txt_infoBusqueda.setText("Información de los empleados");
+
+                    modeloBusquedaGeneral.setColumnIdentifiers(titulosArticulos); //Asignar titulos a la tabla
+
+                    filtrarCodigo("Select * from articulo where codigo = " + codigoBusqueda, modeloBusquedaGeneral);
+                    tabla_resultadoGeneral.setModel(modeloBusquedaGeneral);
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(frmReporte.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+             {
+
+                try {
+                    modeloBusquedaInfo.setColumnIdentifiers(titulosEmpleados); //Asignar titulos a la tabla
+
+                    DatosVendedores(codigoBusqueda);
+                    tabla_empleadoxarticulo.setModel(modeloBusquedaInfo);
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(frmReporte.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        }
 
     }
 
@@ -119,7 +235,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
         tituloEmpleado = new javax.swing.JPanel();
         lbl_infoEmpleado = new javax.swing.JLabel();
         tituloEmpleado1 = new javax.swing.JPanel();
-        lbl_infoEmpleado1 = new javax.swing.JLabel();
+        lbl_infoArticulo = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         btn_buscar = new javax.swing.JButton();
         buscadorReporte = new javax.swing.JTextField();
@@ -130,11 +246,13 @@ public class frmReporte extends javax.swing.JInternalFrame {
         tabla_resultadoGeneral = new javax.swing.JTable();
         piePagina = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        txt_infoBusqueda = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
         setClosable(true);
-        setPreferredSize(new java.awt.Dimension(1200, 905));
+        setPreferredSize(new java.awt.Dimension(1292, 916));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
                 formInternalFrameActivated(evt);
@@ -227,7 +345,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addGap(108, 108, 108))
         );
         cont_tituloLayout.setVerticalGroup(
             cont_tituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,7 +374,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
             }
         });
 
-        list_buscador.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        list_buscador.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
         list_buscador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mostrar clientes", "Mostrar empleados", "Mostrar articulos", "Mostrar ventas" }));
         list_buscador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
@@ -371,16 +489,16 @@ public class frmReporte extends javax.swing.JInternalFrame {
 
         lbl_infoCliente.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         lbl_infoCliente.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_infoCliente.setText("Información Cliente:");
+        lbl_infoCliente.setText("----.----");
         lbl_infoCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout tituloClienteLayout = new javax.swing.GroupLayout(tituloCliente);
         tituloCliente.setLayout(tituloClienteLayout);
         tituloClienteLayout.setHorizontalGroup(
             tituloClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tituloClienteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbl_infoCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tituloClienteLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(lbl_infoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 599, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         tituloClienteLayout.setVerticalGroup(
@@ -392,16 +510,16 @@ public class frmReporte extends javax.swing.JInternalFrame {
 
         lbl_infoEmpleado.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         lbl_infoEmpleado.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_infoEmpleado.setText("Información Empleado:");
+        lbl_infoEmpleado.setText("----.----");
         lbl_infoEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout tituloEmpleadoLayout = new javax.swing.GroupLayout(tituloEmpleado);
         tituloEmpleado.setLayout(tituloEmpleadoLayout);
         tituloEmpleadoLayout.setHorizontalGroup(
             tituloEmpleadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tituloEmpleadoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbl_infoEmpleado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tituloEmpleadoLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(lbl_infoEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         tituloEmpleadoLayout.setVerticalGroup(
@@ -411,23 +529,23 @@ public class frmReporte extends javax.swing.JInternalFrame {
 
         tituloEmpleado1.setBackground(new java.awt.Color(74, 79, 231));
 
-        lbl_infoEmpleado1.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
-        lbl_infoEmpleado1.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_infoEmpleado1.setText("Información Articulo:");
-        lbl_infoEmpleado1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_infoArticulo.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        lbl_infoArticulo.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_infoArticulo.setText("----.----");
+        lbl_infoArticulo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout tituloEmpleado1Layout = new javax.swing.GroupLayout(tituloEmpleado1);
         tituloEmpleado1.setLayout(tituloEmpleado1Layout);
         tituloEmpleado1Layout.setHorizontalGroup(
             tituloEmpleado1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(tituloEmpleado1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lbl_infoEmpleado1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tituloEmpleado1Layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(lbl_infoArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         tituloEmpleado1Layout.setVerticalGroup(
             tituloEmpleado1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lbl_infoEmpleado1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+            .addComponent(lbl_infoArticulo, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -435,10 +553,10 @@ public class frmReporte extends javax.swing.JInternalFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(tabla_principalVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabla_principalVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabla_articuloPrincipal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
+                    .addComponent(tabla_articuloPrincipal, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tabla_empleadoPrincipal)
                     .addComponent(tituloCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tabla_clientePrincipal, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -509,11 +627,14 @@ public class frmReporte extends javax.swing.JInternalFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(buscadorReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(543, Short.MAX_VALUE))
-            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(buscadorReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -586,24 +707,47 @@ public class frmReporte extends javax.swing.JInternalFrame {
             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
         );
 
+        jPanel1.setBackground(new java.awt.Color(74, 79, 231));
+
+        txt_infoBusqueda.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        txt_infoBusqueda.setForeground(new java.awt.Color(255, 255, 255));
+        txt_infoBusqueda.setText("----.-----");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(txt_infoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(txt_infoBusqueda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout panelInicialLayout = new javax.swing.GroupLayout(panelInicial);
         panelInicial.setLayout(panelInicialLayout);
         panelInicialLayout.setHorizontalGroup(
             panelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelInicialLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cont_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInicialLayout.createSequentialGroup()
-                        .addComponent(tabla_principal_resultadoGenerales, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tabla_principal_empleadoxarticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9)))
-                .addContainerGap())
             .addComponent(piePagina, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInicialLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cont_titulo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelInicialLayout.createSequentialGroup()
+                        .addComponent(tabla_principal_resultadoGenerales, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(panelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tabla_principal_empleadoxarticulo)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(106, 106, 106))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelInicialLayout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(98, 98, 98)))
+                .addContainerGap())
         );
         panelInicialLayout.setVerticalGroup(
             panelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -617,9 +761,12 @@ public class frmReporte extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabla_principal_empleadoxarticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tabla_principal_resultadoGenerales, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelInicialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tabla_principal_resultadoGenerales, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelInicialLayout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tabla_principal_empleadoxarticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(piePagina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
@@ -629,11 +776,14 @@ public class frmReporte extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelInicial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 1292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panelInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
@@ -654,8 +804,6 @@ public class frmReporte extends javax.swing.JInternalFrame {
 
         String[] data = new String[numberOfColumns];
 
-        System.out.println("Columas de la consulta " + numberOfColumns);
-
         while (rs.next()) {
             for (int i = 0; i < data.length; i++) {
                 data[i] = rs.getString((i + 1));
@@ -670,6 +818,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
         Reportes filtrarID = new Reportes();
         String SQL = query;
         ResultSet rs = filtrarID.buscar(query);
+        int numeroIntentos = 0;
 
         modelo.setRowCount(0);
 
@@ -678,13 +827,13 @@ public class frmReporte extends javax.swing.JInternalFrame {
 
         String[] data = new String[numberOfColumns];
 
-        System.out.println("Columas de la consulta " + numberOfColumns);
-
         while (rs.next()) {
             for (int i = 0; i < data.length; i++) {
                 data[i] = rs.getString((i + 1));
             }
             modelo.addRow(data);
+
+            return;
         }
         rs.close();
     }
@@ -693,17 +842,14 @@ public class frmReporte extends javax.swing.JInternalFrame {
 
         String resultLista = list_buscador.getSelectedItem().toString();
 
+        lbl_infoCliente.setText("----.----");
+        lbl_infoEmpleado.setText("----.----");
+        lbl_infoArticulo.setText("----.----");
+
         switch (resultLista) {
             case "Mostrar clientes": {
                 try {
 
-                    String titulosClientes[] = {
-                        "Codigo",
-                        "Nombre",
-                        "Apellido",
-                        "Edad",
-                        "Dirección",
-                        "Teléfono",};
                     modeloGeneral.setColumnIdentifiers(titulosClientes); //Asignar titulos a la tabla
 
                     listarTablas("SELECT * from cliente");
@@ -717,16 +863,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
 
             case "Mostrar empleados": {
                 try {
-                    String titulosEmpleados[] = {
-                        "Codigo",
-                        "Nombre",
-                        "Apellido",
-                        "Edad",
-                        "Fecha nacimiento",
-                        "Teléfono",
-                        "Usuario",
-                        "Contraseña"
-                    };
+
                     modeloGeneral.setColumnIdentifiers(titulosEmpleados); //Asignar titulos a la tabla
 
                     listarTablas("SELECT * from empleado");
@@ -740,15 +877,8 @@ public class frmReporte extends javax.swing.JInternalFrame {
             break;
             case "Mostrar articulos": {
                 try {
-                    String titulosEmpleados[] = {
-                        "Codigo",
-                        "Titulo",
-                        "Género",
-                        "Precio",
-                        "Cantidad",
-                        "Tipo"
-                    };
-                    modeloGeneral.setColumnIdentifiers(titulosEmpleados); //Asignar titulos a la tabla
+
+                    modeloGeneral.setColumnIdentifiers(titulosArticulos); //Asignar titulos a la tabla
 
                     listarTablas("SELECT * from articulo");
                     tabla_ventas.setModel(modeloGeneral);
@@ -759,18 +889,14 @@ public class frmReporte extends javax.swing.JInternalFrame {
             }
             break;
             case "Mostrar ventas": {
+
+                lbl_infoCliente.setText("Información Cliente:");
+                lbl_infoEmpleado.setText("Información Empleado:");
+                lbl_infoArticulo.setText("Información Articulo:");
+
                 try {
-                    String titulosEmpleados[] = {
-                        "Codigo",
-                        "Cod_emp",
-                        "Cod_cli",
-                        "Cod_art",
-                        "Fecha",
-                        "Hora",
-                        "Cantidad",
-                        "Valor"
-                    };
-                    modeloGeneral.setColumnIdentifiers(titulosEmpleados); //Asignar titulos a la tabla
+
+                    modeloGeneral.setColumnIdentifiers(tituloVenta); //Asignar titulos a la tabla
 
                     listarTablas("SELECT * from venta");
                     tabla_ventas.setModel(modeloGeneral);
@@ -814,14 +940,6 @@ public class frmReporte extends javax.swing.JInternalFrame {
                 {
                     try {
 
-                        String titulosClientes[] = {
-                            "Codigo",
-                            "Nombre",
-                            "Apellido",
-                            "Edad",
-                            "Dirección",
-                            "Teléfono"
-                        };
                         modeloIDcliente.setColumnIdentifiers(titulosClientes); //Asignar titulos a la tabla
 
                         filtrarCodigo("SELECT cliente.codigo, cliente.nombre, cliente.apellido, cliente.edad, cliente.dir, cliente.telefono from venta inner join cliente on " + tabla_ventas.getValueAt(fila, 2).toString() + "= cliente.codigo", modeloIDcliente);
@@ -836,16 +954,6 @@ public class frmReporte extends javax.swing.JInternalFrame {
                 {
                     try {
 
-                        String titulosEmpleados[] = {
-                            "Codigo",
-                            "Cod_emp",
-                            "Cod_cli",
-                            "Cod_art",
-                            "Fecha",
-                            "Hora",
-                            "Cantidad",
-                            "Valor"
-                        };
                         modeloIDempleado.setColumnIdentifiers(titulosEmpleados); //Asignar titulos a la tabla
 
                         filtrarCodigo("SELECT empleado.codigo, empleado.nombre, empleado.apellido, empleado.edad, empleado.fecha_nacimiento, empleado.telefono, empleado.usuario, empleado.contrasena from venta inner join empleado on " + tabla_ventas.getValueAt(fila, 1).toString() + "= empleado.codigo", modeloIDempleado);
@@ -860,15 +968,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
                 {
                     try {
 
-                        String titulosArticulo[] = {
-                            "Codigo",
-                            "Titulo",
-                            "genero",
-                            "precio",
-                            "cantidad",
-                            "tipo"
-                        };
-                        modeloIDarticulo.setColumnIdentifiers(titulosArticulo); //Asignar titulos a la tabla
+                        modeloIDarticulo.setColumnIdentifiers(titulosArticulos); //Asignar titulos a la tabla
 
                         filtrarCodigo("SELECT articulo.codigo, articulo.titulo, articulo.genero, articulo.precio, articulo.cantidad, articulo.tipo from venta inner join articulo on " + tabla_ventas.getValueAt(fila, 3).toString() + "= articulo.codigo", modeloIDarticulo);
                         tabla_articuloInterna.setModel(modeloIDarticulo);
@@ -884,7 +984,6 @@ public class frmReporte extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tabla_ventasMouseClicked
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-        tabla_ventas.setCellSelectionEnabled(false);
 
     }//GEN-LAST:event_formInternalFrameActivated
 
@@ -915,44 +1014,20 @@ public class frmReporte extends javax.swing.JInternalFrame {
         } else {
             if (tipoBusqueda.equals("empleado")) {
 
-                //TABLA ARTICULO
-                String titulosArticulos[] = {"Codigo", "Titulo", "Género", "Precio", "Cantidad", "Tipo"}; //titulo de las columnas
-                String infoArticulo
-                        = tabla_resultadoGeneral.getValueAt(fila, 3).toString()
-                        + ",Intelestelar"
-                        + ",Ciencia ficción"
-                        + ",50000"
-                        + ",2"
-                        + ",Pelicula";
+                {
+                    try {
 
-                String[] lineaArticulo; // Array que almacenara la información separa por , en cada indice
-                DefaultTableModel modeloArticulo = new DefaultTableModel(); //Crear el modelo a la tabla
+                        modeloBusquedaInfo.setColumnIdentifiers(titulosArticulos); //Asignar titulos a la tabla
 
-                modeloArticulo.setColumnIdentifiers(titulosArticulos); //Asignar titulos a la tabla
-                lineaArticulo = infoArticulo.split(",");
-                modeloArticulo.addRow(lineaArticulo); //Asignar el mododelo a la tabla
-                tabla_empleadoxarticulo.setModel(modeloArticulo);
+                        filtrarCodigo("SELECT articulo.codigo, articulo.titulo, articulo.genero, articulo.precio, articulo.cantidad, articulo.tipo from venta inner join articulo on " + tabla_resultadoGeneral.getValueAt(fila, 3).toString() + "= articulo.codigo", modeloBusquedaInfo);
+                        tabla_empleadoxarticulo.setModel(modeloBusquedaInfo);
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(frmReporte.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
 
             } else if (tipoBusqueda.equals("articulo")) {
-
-                //TABLA EMPLEADOS
-                String titulosEmpleados[] = {"Codigo", "Nombre", "Apellido", "Fecha nacimiento", "Teléfono", "Usuario", "Contraseña"}; //titulo de las columnas
-                String infoEmpleado
-                        = tabla_resultadoGeneral.getValueAt(fila, 1).toString()
-                        + ",Edwin"
-                        + ",Palacios"
-                        + ",10-05-2020"
-                        + ",600-02-02"
-                        + ",admin"
-                        + ",123";
-
-                String[] lineaEmpleados; // Array que almacenara la información separa por , en cada indice
-                DefaultTableModel modeloEmpleado = new DefaultTableModel(); //Crear el modelo a la tabla
-
-                modeloEmpleado.setColumnIdentifiers(titulosEmpleados); //Asignar titulos a la tabla
-                lineaEmpleados = infoEmpleado.split(",");
-                modeloEmpleado.addRow(lineaEmpleados); //Asignar el mododelo a la tabla
-                tabla_empleadoxarticulo.setModel(modeloEmpleado);
 
             }
         }
@@ -988,32 +1063,24 @@ public class frmReporte extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel PiedePagina;
-    private javax.swing.JLabel PiedePagina1;
-    private javax.swing.JLabel PiedePagina2;
-    private javax.swing.JLabel PiedePagina3;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_filtrarLista;
     private javax.swing.JTextField buscadorReporte;
-    private javax.swing.JPanel cont_piePagina;
-    private javax.swing.JPanel cont_piePagina1;
-    private javax.swing.JPanel cont_piePagina2;
-    private javax.swing.JPanel cont_piePagina3;
     private javax.swing.JPanel cont_titulo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JLabel lbl_infoArticulo;
     private javax.swing.JLabel lbl_infoCliente;
-    private javax.swing.JLabel lbl_infoCliente2;
     private javax.swing.JLabel lbl_infoEmpleado;
-    private javax.swing.JLabel lbl_infoEmpleado1;
     private javax.swing.JComboBox<String> list_buscador;
     private javax.swing.JPanel panelInicial;
     private javax.swing.JPanel piePagina;
@@ -1030,8 +1097,8 @@ public class frmReporte extends javax.swing.JInternalFrame {
     private javax.swing.JTable tabla_resultadoGeneral;
     private javax.swing.JTable tabla_ventas;
     private javax.swing.JPanel tituloCliente;
-    private javax.swing.JPanel tituloCliente2;
     private javax.swing.JPanel tituloEmpleado;
     private javax.swing.JPanel tituloEmpleado1;
+    private javax.swing.JLabel txt_infoBusqueda;
     // End of variables declaration//GEN-END:variables
 }

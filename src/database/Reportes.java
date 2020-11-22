@@ -44,18 +44,18 @@ public class Reportes {
         }
         return rsVentasXvendedor;
     }
-
-    public ResultSet VendioXProducto(String codigoVenta, String codigoProducto) {
-        ResultSet rsVendioXProducto = null;
+    
+     public ResultSet DatosVendedores(String codigoArticulo) {
+        ResultSet rsVentasXvendedor = null;
         try {
             Connection con = DriverManager.getConnection(cadenaConexion);
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("Select * from empleado where codigo = (select cod_emp from venta where (cod_art = '" + codigoProducto + "' and codigo = '" + codigoVenta + "'));");
-            rsVendioXProducto = rs;
+            ResultSet rs = stmt.executeQuery("Select * from empleado where codigo in (select DISTINCT cod_emp from venta where cod_art = " + codigoArticulo + ")");
+            rsVentasXvendedor = rs;
         } catch (SQLException ex) {
             Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return rsVendioXProducto;
+        return rsVentasXvendedor;
     }
 
     public ResultSet buscar(String query) {
