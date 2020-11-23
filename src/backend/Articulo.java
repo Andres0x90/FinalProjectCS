@@ -15,7 +15,13 @@ public class Articulo {
     protected String tipo;
     
      public Articulo(){
-     
+         
+         this.codigo = "";
+         this.titulo = "";
+         this.genero = "";
+         this.precio = 0;
+         this.cantidad = 0;
+         this.tipo = "";
      }
 
     public Articulo(String codigo, String titulo, String genero, float precio, int cantidad, String tipo) {
@@ -91,13 +97,13 @@ public class Articulo {
 
     public void actualizar(Component parent, String codigo, String titulo, String genero, float precio, int cantidad, String tipo) {
         if (this.codigo.equals("")) {
-            JOptionPane.showMessageDialog(parent, "Por favor busque un cliente valido");
+            JOptionPane.showMessageDialog(parent, "Por favor busque un articulo  valido");
         } else {
             Crud articulo = new Crud();
             articulo.update("UPDATE articulo SET codigo='" + codigo + "',titulo='" + titulo + "',genero='" + genero
                     + "',precio=" + precio + ",cantidad=" + cantidad + ",tipo='" + tipo + "' WHERE codigo='" + this.codigo + "'");
 
-            JOptionPane.showMessageDialog(parent, "Cliente actualizado correctamente");
+            JOptionPane.showMessageDialog(parent, "Articulo actualizado correctamente");
         }
     }
 
@@ -113,7 +119,7 @@ public class Articulo {
             this.cantidad = Integer.parseInt(data.get(4));
             this.tipo = data.get(5);
         } else {
-            JOptionPane.showMessageDialog(parent, "Cliente no encontrado");
+            JOptionPane.showMessageDialog(parent, "Articulo no encontrado");
         }
     }
     

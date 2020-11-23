@@ -94,7 +94,7 @@ public class Empleado extends Persona
         }
         else
         {
-            JOptionPane.showMessageDialog(parent, "Cliente no encontrado");
+            JOptionPane.showMessageDialog(parent, "Empleado no encontrado");
         }
     }
 
@@ -107,7 +107,7 @@ public class Empleado extends Persona
         
         if (this.codigo.equals(""))
         {
-            JOptionPane.showMessageDialog(parent, "Por favor busque un cliente valido.");
+            JOptionPane.showMessageDialog(parent, "Por favor busque un Empleado valido.");
         }
         else
         {
