@@ -18,32 +18,24 @@ public class opEmpleado {
     
     }
     
-    public ArrayList<String> login(String user, String pass){
-        ArrayList<String> result = null;
+    public boolean login(String user, String pass){
+        boolean existe=false;
         try{
             Connection con = DriverManager.getConnection(cadenaConexion);
             Statement stmt = con.createStatement();
             String query = "Select * from empleado where usuario = '"+user+"' and contrasena = '"+pass+"'";
             ResultSet rs = stmt.executeQuery(query);
             
-            
-            ResultSetMetaData rsmd = rs.getMetaData();
-            int numberOfColumns = rsmd.getColumnCount();
-            
-            while(rs.next()){
-                result = new ArrayList<String>();
-                for (int i = 1; i <=numberOfColumns;i++) {
-                    result.add(rs.getString(i));
-                }
+            if(rs.next()){
+                existe  = true;
             }
-            
             
             stmt.close();
             con.close();
         }catch(SQLException ex){
             System.out.println("Ha ocurrido un error: "+ex);
         }
-        return result;
+        return existe;
     }
     
     
