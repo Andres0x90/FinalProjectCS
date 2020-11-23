@@ -37,7 +37,9 @@ public class Reportes {
         try {
             Connection con = DriverManager.getConnection(cadenaConexion);
             Statement stmt = con.createStatement();
+
             ResultSet rs = stmt.executeQuery("Select * from venta where cod_emp = '" + codigoEmpleado + "';");
+
             rsVentasXvendedor = rs;
         } catch (SQLException ex) {
             Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);

@@ -74,4 +74,7 @@ select * from venta inner join empleado on venta.cod_emp = empleado.codigo join 
 select * from empleado;
 Select * from venta where cod_emp = (select codigo from empleado where codigo=@codigo_empleado);
 Select * from empleado where codigo = (select cod_emp from venta where (cod_art = @cod_art and codigo = @codigo_venta));
+Select * from empleado where codigo = (select cod_emp from venta where cod_art = '05GOW');
+
 */
+
