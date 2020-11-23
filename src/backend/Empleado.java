@@ -94,7 +94,7 @@ public class Empleado extends Persona
         }
         else
         {
-            JOptionPane.showMessageDialog(parent, "Cliente no encontrado");
+            JOptionPane.showMessageDialog(parent, "Empleado no encontrado");
         }
     }
 
@@ -102,11 +102,12 @@ public class Empleado extends Persona
     public void eliminar(Component parent) 
     {
         Crud crudCliente = new Crud();
+        crudCliente.delete("DELETE FROM venta WHERE venta.cod_emp = '" + this.codigo + "'");
         crudCliente.delete("DELETE FROM empleado WHERE empleado.codigo = '" + this.codigo + "'");
         
         if (this.codigo.equals(""))
         {
-            JOptionPane.showMessageDialog(parent, "Por favor busque un cliente valido.");
+            JOptionPane.showMessageDialog(parent, "Por favor busque un Empleado valido.");
         }
         else
         {
@@ -118,7 +119,7 @@ public class Empleado extends Persona
             this.fecha_nacimiento = "";
             this.usuario = "";
             this.contrasena = "";
-            JOptionPane.showMessageDialog(parent, "Cliente elminado correctamente.");
+            JOptionPane.showMessageDialog(parent, "Empleado eliminado correctamente.");
         }
     }
 

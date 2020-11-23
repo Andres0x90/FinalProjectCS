@@ -1,9 +1,14 @@
 package interfaz;
 
 // Redimensionar imagenes
+import backend.Venta;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -11,7 +16,7 @@ import javax.swing.JOptionPane;
 public class frmVentas extends javax.swing.JInternalFrame {
 
     //VARIABLES GLOBALES
-    int precioUnidad;
+    Float precioUnidad;
 
     public frmVentas() {
         initComponents();
@@ -23,9 +28,9 @@ public class frmVentas extends javax.swing.JInternalFrame {
         } else {
             String cadenaDatos = "";
             cadenaDatos = txt_buscarInformacion.getText();
-            String[] Codigos_separados = cadenaDatos.split(",");
+            String[] codigos= cadenaDatos.split(",");
 
-            if (Codigos_separados.length != 3) {
+            if (codigos.length != 3) {
                 JOptionPane.showMessageDialog(this, "Es necesario suministrar los 3 códigos.");
 
                 txt_nombreCliente.setText("--.--");
@@ -49,53 +54,36 @@ public class frmVentas extends javax.swing.JInternalFrame {
 
                 boolean habilitarCantidad = false;
 
-                // CONSULTAR DB CLIENTES
-                if (Integer.parseInt(Codigos_separados[0]) == 1) {
-                    txt_nombreCliente.setText("Andrés");
-                    txt_apellidoCliente.setText("Serna Muñoz");
-
+                Venta venta = new Venta(codigos[0],codigos[1],codigos[2]);
+                ArrayList<String> info = venta.buscar(this);
+                if (!info.contains(""))
+                {
                     habilitarCantidad = true;
-                } else {
-                    JOptionPane.showMessageDialog(this, "Código del cliente " + Codigos_separados[0] + " no está registrado en el sistema.");
+
+                    txt_nombreCliente.setText(info.get(0));
+                    txt_apellidoCliente.setText(info.get(1));
+                    txt_nombreEmpleado.setText(info.get(2));
+                    txt_apellidoEmpleado.setText(info.get(3));
+                    txt_nombreArticulo.setText(info.get(4));
+                    txt_precio.setText(info.get(5));
+                    txt_cantidad.setText(info.get(6));
+                }
+                else
+                {
                     txt_nombreCliente.setText("--.--");
                     txt_apellidoCliente.setText("--.--");
-
-                    //evitar agregar cantidad si el codigo es incorrecto
-                    habilitarCantidad = false;
-                }
-
-                //CONSULTAR DB EMPLEADO
-                if (Integer.parseInt(Codigos_separados[1]) == 2) {
-                    txt_nombreEmpleado.setText("Mateo");
-                    txt_apellidoEmpleado.setText("Arboleda Beltrán");
-
-                    habilitarCantidad = true;
-                } else {
-                    JOptionPane.showMessageDialog(this, "Código del empleado " + Codigos_separados[1] + " no está registrado en el sistema.");
                     txt_nombreEmpleado.setText("--.--");
                     txt_apellidoEmpleado.setText("--.--");
-
-                    //evitar agregar cantidad si el codigo es incorrecto
-                    habilitarCantidad = false;
-                }
-
-                //CONSULTAR DB ARTICULOS
-                if (Integer.parseInt(Codigos_separados[2]) == 3) {
-                    txt_nombreArticulo.setText("Intelestelar");
-                    txt_precio.setText("25000");
-                    txt_cantidad.setText("10");
-
-                    precioUnidad = Integer.parseInt(txt_precio.getText());
-                    habilitarCantidad = true;
-                } else {
-                    JOptionPane.showMessageDialog(this, "Código del articulo " + Codigos_separados[2] + " no está registrado en el sistema.");
                     txt_nombreArticulo.setText("--.--");
                     txt_precio.setText("--.--");
                     txt_cantidad.setText("--.--");
+                    txt_cantidadArticulos.setText("");
+                    txt_totalPagar.setText("--.--");
 
-                    habilitarCantidad = false;
+                    txt_buscarInformacion.setText("Código cliente, Código empleado, Código articulo");
+                    txt_buscarInformacion.requestFocus();
+                    txt_buscarInformacion.selectAll();
                 }
-
                 if (habilitarCantidad) {
                     //PERMITE AGREGAR CANTIDAD AL INPUT
                     txt_cantidadArticulos.setEnabled(true);
@@ -250,7 +238,7 @@ public class frmVentas extends javax.swing.JInternalFrame {
         btn_buscarCliente.setText("Realizar búsqueda");
         btn_buscarCliente.setBorder(null);
         btn_buscarCliente.setBorderPainted(false);
-        btn_buscarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_buscarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_buscarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscarClienteActionPerformed(evt);
@@ -262,11 +250,11 @@ public class frmVentas extends javax.swing.JInternalFrame {
 
         lbl_nombreCliente.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
         lbl_nombreCliente.setText("Nombre:");
-        lbl_nombreCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_nombreCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         txt_nombreCliente.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txt_nombreCliente.setText("--.--");
-        txt_nombreCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txt_nombreCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txt_nombreCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txt_nombreClienteMouseClicked(evt);
@@ -275,11 +263,11 @@ public class frmVentas extends javax.swing.JInternalFrame {
 
         lbl_apellidoCliente.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
         lbl_apellidoCliente.setText("Apellido:");
-        lbl_apellidoCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_apellidoCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         txt_apellidoCliente.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txt_apellidoCliente.setText("--.--");
-        txt_apellidoCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txt_apellidoCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txt_apellidoCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txt_apellidoClienteMouseClicked(evt);
@@ -291,7 +279,7 @@ public class frmVentas extends javax.swing.JInternalFrame {
         lbl_infoCliente.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         lbl_infoCliente.setForeground(new java.awt.Color(255, 255, 255));
         lbl_infoCliente.setText("Información Cliente:");
-        lbl_infoCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_infoCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout tituloClienteLayout = new javax.swing.GroupLayout(tituloCliente);
         tituloCliente.setLayout(tituloClienteLayout);
@@ -344,11 +332,11 @@ public class frmVentas extends javax.swing.JInternalFrame {
 
         lbl_nombreEmpleado.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
         lbl_nombreEmpleado.setText("Nombre:");
-        lbl_nombreEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_nombreEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         txt_nombreEmpleado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txt_nombreEmpleado.setText("--.--");
-        txt_nombreEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txt_nombreEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txt_nombreEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txt_nombreEmpleadoMouseClicked(evt);
@@ -357,11 +345,11 @@ public class frmVentas extends javax.swing.JInternalFrame {
 
         lbl_apellidoEmpleado.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
         lbl_apellidoEmpleado.setText("Apellido:");
-        lbl_apellidoEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_apellidoEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         txt_apellidoEmpleado.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txt_apellidoEmpleado.setText("--.--");
-        txt_apellidoEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txt_apellidoEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txt_apellidoEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txt_apellidoEmpleadoMouseClicked(evt);
@@ -373,7 +361,7 @@ public class frmVentas extends javax.swing.JInternalFrame {
         lbl_infoEmpleado.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         lbl_infoEmpleado.setForeground(new java.awt.Color(255, 255, 255));
         lbl_infoEmpleado.setText("Información Empleado:");
-        lbl_infoEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_infoEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout tituloCliente1Layout = new javax.swing.GroupLayout(tituloCliente1);
         tituloCliente1.setLayout(tituloCliente1Layout);
@@ -426,11 +414,11 @@ public class frmVentas extends javax.swing.JInternalFrame {
 
         lbl_nombreArticulo.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
         lbl_nombreArticulo.setText("Nombre:");
-        lbl_nombreArticulo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_nombreArticulo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         txt_nombreArticulo.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txt_nombreArticulo.setText("--.--");
-        txt_nombreArticulo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txt_nombreArticulo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txt_nombreArticulo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txt_nombreArticuloMouseClicked(evt);
@@ -439,12 +427,12 @@ public class frmVentas extends javax.swing.JInternalFrame {
 
         lbl_precio.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
         lbl_precio.setText("Precio c/u");
-        lbl_precio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_precio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         txt_precio.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txt_precio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txt_precio.setText("--.--");
-        txt_precio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txt_precio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txt_precio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txt_precioMouseClicked(evt);
@@ -456,7 +444,7 @@ public class frmVentas extends javax.swing.JInternalFrame {
         lbl_infoArticulos.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         lbl_infoArticulos.setForeground(new java.awt.Color(255, 255, 255));
         lbl_infoArticulos.setText("Información Articulo:");
-        lbl_infoArticulos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_infoArticulos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout tituloCliente2Layout = new javax.swing.GroupLayout(tituloCliente2);
         tituloCliente2.setLayout(tituloCliente2Layout);
@@ -478,12 +466,12 @@ public class frmVentas extends javax.swing.JInternalFrame {
         lbl_cantidad.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
         lbl_cantidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_cantidad.setText("Cantidad bodega:");
-        lbl_cantidad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_cantidad.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         txt_cantidad.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txt_cantidad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txt_cantidad.setText("--.--");
-        txt_cantidad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txt_cantidad.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txt_cantidad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txt_cantidadMouseClicked(evt);
@@ -502,11 +490,11 @@ public class frmVentas extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lbl_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_precio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txt_precio, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbl_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addComponent(tituloCliente2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -530,7 +518,7 @@ public class frmVentas extends javax.swing.JInternalFrame {
         lbl_cantidadArticulos.setFont(new java.awt.Font("Roboto", 3, 18)); // NOI18N
         lbl_cantidadArticulos.setForeground(new java.awt.Color(255, 255, 255));
         lbl_cantidadArticulos.setText("Cantidad articulos:");
-        lbl_cantidadArticulos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_cantidadArticulos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         txt_cantidadArticulos.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txt_cantidadArticulos.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -553,7 +541,7 @@ public class frmVentas extends javax.swing.JInternalFrame {
         txt_totalPagar.setForeground(new java.awt.Color(255, 255, 255));
         txt_totalPagar.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         txt_totalPagar.setText("--.--");
-        txt_totalPagar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txt_totalPagar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         txt_totalPagar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txt_totalPagarMouseClicked(evt);
@@ -563,7 +551,7 @@ public class frmVentas extends javax.swing.JInternalFrame {
         lbl_totalPagar.setFont(new java.awt.Font("Roboto", 3, 18)); // NOI18N
         lbl_totalPagar.setForeground(new java.awt.Color(255, 255, 255));
         lbl_totalPagar.setText("Total a pagar:");
-        lbl_totalPagar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_totalPagar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout tituloCliente3Layout = new javax.swing.GroupLayout(tituloCliente3);
         tituloCliente3.setLayout(tituloCliente3Layout);
@@ -574,7 +562,7 @@ public class frmVentas extends javax.swing.JInternalFrame {
                 .addComponent(lbl_cantidadArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_cantidadArticulos, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(lbl_totalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_totalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -605,7 +593,7 @@ public class frmVentas extends javax.swing.JInternalFrame {
                 .addGap(50, 50, 50)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 1, Short.MAX_VALUE)
                         .addComponent(txt_buscarInformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_buscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -750,7 +738,7 @@ public class frmVentas extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 940, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 947, Short.MAX_VALUE)
         );
 
         setBounds(200, 20, 747, 967);
@@ -831,6 +819,7 @@ public class frmVentas extends javax.swing.JInternalFrame {
     private void txt_cantidadArticulosKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_cantidadArticulosKeyPressed
         if (teclaEnter(evt)) {
             double totalPagar = 0;
+            precioUnidad = Float.parseFloat(txt_precio.getText());
             totalPagar = precioUnidad * Integer.parseInt(txt_cantidadArticulos.getText());
             txt_totalPagar.setText("" + totalPagar);
 
@@ -838,8 +827,14 @@ public class frmVentas extends javax.swing.JInternalFrame {
                     "Desea realizar la venta del articulo.",
                     "Confirmar venta",
                     JOptionPane.YES_NO_OPTION);
+            
+
 
             if (seleccion == 0) {
+                String[] codigos = txt_buscarInformacion.getText().split(",");
+                Venta venta = new Venta(codigos[0],codigos[1], codigos[2]);
+                venta.insertar(Integer.parseInt(txt_cantidadArticulos.getText()), Float.parseFloat(txt_totalPagar.getText()));
+                
                 JOptionPane.showMessageDialog(this, "Venta realizada con exito.");
                 txt_nombreCliente.setText("--.--");
                 txt_apellidoCliente.setText("--.--");
