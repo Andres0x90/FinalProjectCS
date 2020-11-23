@@ -61,27 +61,20 @@ go
 /*
 Select * from empleado;
 insert into empleado values ('0101010', 'empleado1', 'algunofeo', 20,'2001-08-08','9996542452', 'emp1','123456789');
-
 select * from articulo;
 insert into articulo values('05GOW','Dios de la guerra','Accion',15000,100,'videojuego');
-insert into articulo values('01MAT','MATRIX 1999','Ficción',250000,5,'pelicula');
-
+insert into articulo values('01MAT','MATRIX 1999','FicciÃ³n',250000,5,'pelicula');
 select * from cliente;
 insert into cliente values('101', 'raquel','desca',25,'cll 25b # 25 - 25','0000000');
 insert into cliente values('121', 'Anak','Zahard',24,'cll 15z # 2 - 25','15915912');
-
 select * from venta;
 insert into venta values('0101010','101','05GOW','05-05-2020','00:00',25,375000);
 insert into venta values('0101010','101','01MAT','08-05-2020','02:00',2,500000);
-
-
 select * from venta inner join empleado on venta.cod_emp = empleado.codigo join cliente on venta.cod_cli = cliente.codigo;
-
 select * from empleado;
 Select * from venta where cod_emp = (select codigo from empleado where codigo=@codigo_empleado);
-
 Select * from empleado where codigo = (select cod_emp from venta where (cod_art = @cod_art and codigo = @codigo_venta));
-
 Select * from empleado where codigo = (select cod_emp from venta where cod_art = '05GOW');
 
 */
+
