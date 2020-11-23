@@ -5,6 +5,8 @@
  */
 package interfaz;
 
+import database.opEmpleado;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -17,9 +19,10 @@ public class frmLogin extends javax.swing.JFrame {
     /**
      * Creates new form frmLogin
      */
+    opEmpleado op;
     public frmLogin() {
         initComponents();
-
+        op = new opEmpleado();
         txt_usuario.selectAll();
     }
 
@@ -30,6 +33,16 @@ public class frmLogin extends javax.swing.JFrame {
             result = true;
         }
         return result;
+    }
+    private void loguear(){
+        boolean logueado = op.login(txt_usuario.getText(), txt_contrasena.getText());
+        if (logueado) {
+            this.dispose();
+            MDI mdi = new MDI();
+            mdi.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuario o Contraseña inválido.");
+        }
     }
 
     /**
@@ -74,6 +87,11 @@ public class frmLogin extends javax.swing.JFrame {
                 txt_usuarioMouseClicked(evt);
             }
         });
+        txt_usuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_usuarioKeyPressed(evt);
+            }
+        });
 
         txt_contrasena.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         txt_contrasena.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -88,6 +106,11 @@ public class frmLogin extends javax.swing.JFrame {
                 txt_contrasenaMouseClicked(evt);
             }
         });
+        txt_contrasena.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_contrasenaKeyPressed(evt);
+            }
+        });
 
         btn_iniciarSesion.setBackground(new java.awt.Color(74, 79, 231));
         btn_iniciarSesion.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
@@ -95,6 +118,14 @@ public class frmLogin extends javax.swing.JFrame {
         btn_iniciarSesion.setText("Iniciar sesión");
         btn_iniciarSesion.setBorder(null);
         btn_iniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_iniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_iniciarSesionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_iniciarSesionMouseExited(evt);
+            }
+        });
         btn_iniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_iniciarSesionActionPerformed(evt);
@@ -212,19 +243,35 @@ public class frmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_contrasenaFocusLost
 
     private void btn_iniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_iniciarSesionActionPerformed
-
-        if (txt_usuario.getText().equals("admin") && txt_contrasena.getText().equals("123")) {
-            JOptionPane.showMessageDialog(this, "Redireccionar MDI");
-        } else {
-            if (!(txt_usuario.getText().equals("admin")) && txt_contrasena.getText().equals("123")) {
-                JOptionPane.showMessageDialog(this, "Usuario inválido.");
-            } else if (!(txt_contrasena.getText().equals("123")) && txt_usuario.getText().equals("admin")) {
-                JOptionPane.showMessageDialog(this, "Contraseña inválido.");
-            } else {
-                JOptionPane.showMessageDialog(this, "Usuario y Contraseña inválido.");
-            }
-        }
+        loguear();
     }//GEN-LAST:event_btn_iniciarSesionActionPerformed
+
+    private void txt_usuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_usuarioKeyPressed
+        // TODO add your handling code here:
+        boolean enter = teclaEnter(evt);
+        if(enter){
+            txt_contrasena.requestFocus();
+            txt_contrasena.selectAll();
+        }
+    }//GEN-LAST:event_txt_usuarioKeyPressed
+
+    private void txt_contrasenaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_contrasenaKeyPressed
+        // TODO add your handling code here:
+        boolean enter = teclaEnter(evt);
+        if(enter){
+            loguear();
+        }
+    }//GEN-LAST:event_txt_contrasenaKeyPressed
+
+    private void btn_iniciarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_iniciarSesionMouseEntered
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_iniciarSesion.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_iniciarSesionMouseEntered
+
+    private void btn_iniciarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_iniciarSesionMouseExited
+        Color btnHoverOut = new Color(74, 79, 231);
+        btn_iniciarSesion.setBackground(btnHoverOut);
+    }//GEN-LAST:event_btn_iniciarSesionMouseExited
 
     /**
      * @param args the command line arguments

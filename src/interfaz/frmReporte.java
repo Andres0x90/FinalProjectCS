@@ -1,6 +1,7 @@
 package interfaz;
 
 import database.Reportes;
+import java.awt.Color;
 
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
@@ -368,6 +369,14 @@ public class frmReporte extends javax.swing.JInternalFrame {
         btn_filtrarLista.setBorder(null);
         btn_filtrarLista.setBorderPainted(false);
         btn_filtrarLista.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_filtrarLista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_filtrarListaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_filtrarListaMouseExited(evt);
+            }
+        });
         btn_filtrarLista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_filtrarListaActionPerformed(evt);
@@ -376,7 +385,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
 
         list_buscador.setFont(new java.awt.Font("Roboto", 3, 14)); // NOI18N
         list_buscador.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mostrar clientes", "Mostrar empleados", "Mostrar articulos", "Mostrar ventas" }));
-        list_buscador.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        list_buscador.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -412,7 +421,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
 
             }
         ));
-        tabla_ventas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tabla_ventas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tabla_ventas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabla_ventasMouseClicked(evt);
@@ -490,7 +499,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
         lbl_infoCliente.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         lbl_infoCliente.setForeground(new java.awt.Color(255, 255, 255));
         lbl_infoCliente.setText("----.----");
-        lbl_infoCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_infoCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout tituloClienteLayout = new javax.swing.GroupLayout(tituloCliente);
         tituloCliente.setLayout(tituloClienteLayout);
@@ -511,7 +520,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
         lbl_infoEmpleado.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         lbl_infoEmpleado.setForeground(new java.awt.Color(255, 255, 255));
         lbl_infoEmpleado.setText("----.----");
-        lbl_infoEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_infoEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout tituloEmpleadoLayout = new javax.swing.GroupLayout(tituloEmpleado);
         tituloEmpleado.setLayout(tituloEmpleadoLayout);
@@ -532,7 +541,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
         lbl_infoArticulo.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
         lbl_infoArticulo.setForeground(new java.awt.Color(255, 255, 255));
         lbl_infoArticulo.setText("----.----");
-        lbl_infoArticulo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_infoArticulo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout tituloEmpleado1Layout = new javax.swing.GroupLayout(tituloEmpleado1);
         tituloEmpleado1.setLayout(tituloEmpleado1Layout);
@@ -594,6 +603,14 @@ public class frmReporte extends javax.swing.JInternalFrame {
         btn_buscar.setBorder(null);
         btn_buscar.setBorderPainted(false);
         btn_buscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_buscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_buscarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_buscarMouseExited(evt);
+            }
+        });
         btn_buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscarActionPerformed(evt);
@@ -631,8 +648,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(buscadorReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0))
+                        .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -659,7 +675,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
 
             }
         ));
-        tabla_empleadoxarticulo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tabla_empleadoxarticulo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tabla_empleadoxarticulo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabla_empleadoxarticuloMouseClicked(evt);
@@ -679,7 +695,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
 
             }
         ));
-        tabla_resultadoGeneral.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        tabla_resultadoGeneral.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tabla_resultadoGeneral.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabla_resultadoGeneralMouseClicked(evt);
@@ -910,8 +926,6 @@ public class frmReporte extends javax.swing.JInternalFrame {
 
         if (!(list_buscador.getSelectedItem() == "Mostrar ventas")) {
 
-            //Quitar información si no estoy en la tabla ventas
-            System.out.println("Ya no es listado de ventas");
             DefaultTableModel modeloCliente = new DefaultTableModel(); //Crear el modelo a la tabla
             tabla_clienteInterna.setModel(modeloCliente);
             modeloCliente.setRowCount(0);
@@ -1059,6 +1073,26 @@ public class frmReporte extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_buscadorReporteKeyPressed
+
+    private void btn_filtrarListaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_filtrarListaMouseEntered
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_filtrarLista.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_filtrarListaMouseEntered
+
+    private void btn_filtrarListaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_filtrarListaMouseExited
+        Color btnHoverOut = new Color(74, 79, 231);
+        btn_filtrarLista.setBackground(btnHoverOut);
+    }//GEN-LAST:event_btn_filtrarListaMouseExited
+
+    private void btn_buscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_buscarMouseEntered
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_buscar.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_buscarMouseEntered
+
+    private void btn_buscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_buscarMouseExited
+        Color btnHoverOut = new Color(74, 79, 231);
+        btn_buscar.setBackground(btnHoverOut);
+    }//GEN-LAST:event_btn_buscarMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

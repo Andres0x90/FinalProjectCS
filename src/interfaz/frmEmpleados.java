@@ -681,7 +681,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         txt_buscarEmpleado.selectAll();
     }//GEN-LAST:event_txt_buscarEmpleadoMouseClicked
 
-        private void actualizarCampos(Empleado empleado) {
+    private void actualizarCampos(Empleado empleado) {
         txt_codigo.setText(empleado.getCodigo());
         txt_nombre.setText(empleado.getNombre());
         txt_apellido.setText(empleado.getApellido());
@@ -690,12 +690,12 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         txt_fechaNacimiento.setText(empleado.getFecha_nacimiento());
         txt_usuario.setText(empleado.getUsuario());
         txt_contrasena.setText(empleado.getContrasena());
-        
+
         if (empleado.getEdad() == 0) {
-                txt_edad.setText("");
-            }
+            txt_edad.setText("");
+        }
     }
-    
+
     private void txt_buscarEmpleadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_buscarEmpleadoFocusLost
         if (txt_buscarEmpleado.getText().equals("")) {
 
@@ -706,7 +706,8 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
             txt_edad.setText("");
             txt_telefono.setText("");
             txt_fechaNacimiento.setText("");
-
+            txt_usuario.setText("");
+            txt_contrasena.setText("");
             //Permitir modificar el campo código
             txt_codigo.setEditable(true);
         }
@@ -730,17 +731,14 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_buscarEmpleadoActionPerformed
 
     private void btn_registrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarClienteActionPerformed
-        
-        if( txt_codigo.getText().equals("") || txt_nombre.getText().equals("") || txt_apellido.getText().equals("") || txt_edad.getText().equals("") ||
-            txt_telefono.getText().equals("") || txt_fechaNacimiento.getText().equals("")) 
-        {
-            
+
+        if (txt_codigo.getText().equals("") || txt_nombre.getText().equals("") || txt_apellido.getText().equals("") || txt_edad.getText().equals("")
+                || txt_telefono.getText().equals("") || txt_fechaNacimiento.getText().equals("")) {
+
             JOptionPane.showMessageDialog(this, "Es necesario llenar todos los campos.");
-        }
-        else
-        {
+        } else {
             Empleado empleado = new Empleado(txt_codigo.getText(), txt_nombre.getText(), txt_apellido.getText(), Integer.parseInt(txt_edad.getText()),
-                    txt_telefono.getText(), txt_fechaNacimiento.getText(),txt_usuario.getText(), txt_contrasena.getText());
+                    txt_telefono.getText(), txt_fechaNacimiento.getText(), txt_usuario.getText(), txt_contrasena.getText());
             empleado.registrar(this);
             txt_codigo.requestFocus();
             txt_codigo.setText("");
@@ -755,7 +753,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btn_registrarClienteActionPerformed
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-       
+
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void txt_edadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_edadActionPerformed
@@ -779,7 +777,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
     private void txt_usuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_usuarioKeyPressed
         if (teclaEnter(evt)) {
             txt_contrasena.requestFocus();
-        }     
+        }
     }//GEN-LAST:event_txt_usuarioKeyPressed
 
     private void txt_buscarEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarEmpleadoKeyTyped
@@ -788,25 +786,23 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
 
     private void btn_eliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarEmpleadoActionPerformed
 
-       if (JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar este empleado? ", "Eliminar empleado", JOptionPane.YES_NO_OPTION) == 0) 
-       {
+        if (JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar este empleado? ", "Eliminar empleado", JOptionPane.YES_NO_OPTION) == 0) {
             Empleado empleado = new Empleado();
             empleado.buscar(this, txt_codigo.getText());
             empleado.eliminar(this);
             actualizarCampos(empleado);
-       }
+        }
     }//GEN-LAST:event_btn_eliminarEmpleadoActionPerformed
 
     private void btn_actualizarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarEmpleadoActionPerformed
-        
-        if (JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea actualizar la informacion este empleado? ", "Actualizar empleado", JOptionPane.YES_NO_OPTION) == 0)
-        {
+
+        if (JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea actualizar la informacion este empleado? ", "Actualizar empleado", JOptionPane.YES_NO_OPTION) == 0) {
             Empleado empleado = new Empleado();
             empleado.buscar(this, txt_codigo.getText());
             empleado.actualizar(this, txt_codigo.getText(), txt_nombre.getText(), txt_apellido.getText(), Integer.parseInt(txt_edad.getText()),
-                    txt_telefono.getText(), txt_fechaNacimiento.getText(),txt_usuario.getText(), txt_contrasena.getText());
+                    txt_telefono.getText(), txt_fechaNacimiento.getText(), txt_usuario.getText(), txt_contrasena.getText());
         }
-       
+
     }//GEN-LAST:event_btn_actualizarEmpleadoActionPerformed
 
     private void contenedorPrincipalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contenedorPrincipalMouseClicked
