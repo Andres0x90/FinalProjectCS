@@ -1,6 +1,7 @@
 package interfaz;
 
 // Redimensionar imagenes
+import backend.Articulo;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -23,8 +24,8 @@ public class frmArticulos extends javax.swing.JInternalFrame {
 
     //Arrays para Tipo de articulo
     String TipoArticulo[] = {"", "Pelicula", "Videojuego"};
-    String generoPeliculas[] = {"Género pelicula 1", "Género pelicula 2", "Género pelicula 3"};
-    String generoVideoJuegos[] = {"Género videojuego 1", "Género videojuego 2", "Género videojuego 3"};
+    String generoPeliculas[] = {"","Documental", "Biográfico", "Musical", "Comedia", "Acción", "Drama", "Terror"};
+    String generoVideoJuegos[] = {"","Aventura", "Estrategico", "RPG", "Deportivo", "Carreras", "Terror"};
 
     //Permitir solo numeros en el input
     private void inputNumeros(java.awt.event.KeyEvent evt) {
@@ -575,7 +576,24 @@ public class frmArticulos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_buscarClienteActionPerformed
 
     private void btn_registrarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarArticuloActionPerformed
+        if (txt_codigo.getText().equals("") || txt_titulo.getText().equals("") || list_tipo.getSelectedItem().equals("") || 
+            list_genero.getSelectedItem().equals("") || txt_precioVenta.getText().equals("") || txt_cantidad.getText().equals("")) {
 
+            JOptionPane.showMessageDialog(this, "Es necesario llenar todos los campos.");
+        } else {
+            Cliente cliente = new Cliente(txt_codigo.getText(), txt_nombre.getText(), txt_apellido.getText(), Integer.parseInt(txt_edad.getText()),
+                    txt_direccion.getText(), txt_telefono.getText());
+            cliente.registrar(this);
+
+            txt_codigo.requestFocus();
+
+            txt_codigo.setText("");
+            txt_nombre.setText("");
+            txt_apellido.setText("");
+            txt_edad.setText("");
+            txt_telefono.setText("");
+            txt_direccion.setText("");
+        }
 
     }//GEN-LAST:event_btn_registrarArticuloActionPerformed
 
@@ -599,24 +617,21 @@ public class frmArticulos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_cantidadKeyPressed
 
     private void list_tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_list_tipoActionPerformed
-        
+
         list_genero.removeAllItems();
-        
+
         if (list_tipo.getSelectedIndex() == 1) {
 
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < generoPeliculas.length; i++) {
                 list_genero.addItem(generoPeliculas[i]);
             }
             list_genero.setEnabled(true);
-            //JOptionPane.showMessageDialog(null, "Seleccionado: " + list_tipo.getSelectedIndex());
-        } else if(list_tipo.getSelectedIndex() == 2) {
-            for (int i = 0; i < 3; i++) {
+        } else if (list_tipo.getSelectedIndex() == 2) {
+            for (int i = 0; i < generoVideoJuegos.length; i++) {
                 list_genero.addItem(generoVideoJuegos[i]);
             }
             list_genero.setEnabled(true);
-            //JOptionPane.showMessageDialog(null, "Seleccionado: " + list_tipo.getSelectedIndex());
-            list_genero.setEnabled(true);
-        } else{
+        } else {
             list_genero.setEnabled(false);
         }
 

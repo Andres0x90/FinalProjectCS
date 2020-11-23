@@ -1,6 +1,7 @@
 package interfaz;
 
 // Redimensionar imagenes
+import backend.Empleado;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -48,7 +49,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        jPanel1 = new javax.swing.JPanel();
+        contenedorPrincipal = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lbl_codigo = new javax.swing.JLabel();
         txt_codigo = new javax.swing.JTextField();
@@ -112,14 +113,19 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorPrincipal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                contenedorPrincipalMouseClicked(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         lbl_codigo.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_codigo.setText("Código:");
         lbl_codigo.setToolTipText("");
-        lbl_codigo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_codigo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_codigo.setName(""); // NOI18N
         lbl_codigo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -141,7 +147,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
 
         lbl_nombre.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_nombre.setText("Nombre:");
-        lbl_nombre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_nombre.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_nombre.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_nombreMouseClicked(evt);
@@ -159,7 +165,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
 
         lbl_apellido.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_apellido.setText("Apellido:");
-        lbl_apellido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_apellido.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_apellido.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_apellidoMouseClicked(evt);
@@ -177,7 +183,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
 
         lbl_edad.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_edad.setText("Edad:");
-        lbl_edad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_edad.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_edad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_edadMouseClicked(evt);
@@ -203,7 +209,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
 
         lbl_fechaNacimiento.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_fechaNacimiento.setText("Fecha de nacimiento:");
-        lbl_fechaNacimiento.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_fechaNacimiento.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_fechaNacimiento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_fechaNacimientoMouseClicked(evt);
@@ -221,7 +227,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
 
         lbl_telefono.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_telefono.setText("Teléfono:");
-        lbl_telefono.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_telefono.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_telefono.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_telefonoMouseClicked(evt);
@@ -269,6 +275,14 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         btn_buscarCliente.setBorder(null);
         btn_buscarCliente.setBorderPainted(false);
         btn_buscarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_buscarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_buscarClienteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_buscarClienteMouseExited(evt);
+            }
+        });
         btn_buscarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscarClienteActionPerformed(evt);
@@ -282,6 +296,14 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         btn_registrarCliente.setBorder(null);
         btn_registrarCliente.setBorderPainted(false);
         btn_registrarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_registrarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_registrarClienteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_registrarClienteMouseExited(evt);
+            }
+        });
         btn_registrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_registrarClienteActionPerformed(evt);
@@ -295,7 +317,20 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         btn_actualizarEmpleado.setToolTipText("");
         btn_actualizarEmpleado.setBorder(null);
         btn_actualizarEmpleado.setBorderPainted(false);
-        btn_actualizarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_actualizarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_actualizarEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_actualizarEmpleadoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_actualizarEmpleadoMouseExited(evt);
+            }
+        });
+        btn_actualizarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actualizarEmpleadoActionPerformed(evt);
+            }
+        });
 
         btn_eliminarEmpleado.setBackground(new java.awt.Color(74, 79, 231));
         btn_eliminarEmpleado.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
@@ -305,10 +340,23 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         btn_eliminarEmpleado.setBorder(null);
         btn_eliminarEmpleado.setBorderPainted(false);
         btn_eliminarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_eliminarEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_eliminarEmpleadoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_eliminarEmpleadoMouseExited(evt);
+            }
+        });
+        btn_eliminarEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarEmpleadoActionPerformed(evt);
+            }
+        });
 
         lbl_apellido1.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_apellido1.setText("Contraseña:");
-        lbl_apellido1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_apellido1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_apellido1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_apellido1MouseClicked(evt);
@@ -326,7 +374,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
 
         lbl_apellido2.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_apellido2.setText("Usuario:");
-        lbl_apellido2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_apellido2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_apellido2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_apellido2MouseClicked(evt);
@@ -503,29 +551,29 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
                 .addGap(20, 20, 20))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout contenedorPrincipalLayout = new javax.swing.GroupLayout(contenedorPrincipal);
+        contenedorPrincipal.setLayout(contenedorPrincipalLayout);
+        contenedorPrincipalLayout.setHorizontalGroup(
+            contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenedorPrincipalLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenedorPrincipalLayout.createSequentialGroup()
                         .addComponent(cont_logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cont_titulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(30, 30, 30))
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        contenedorPrincipalLayout.setVerticalGroup(
+            contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenedorPrincipalLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cont_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cont_logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -543,12 +591,12 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(contenedorPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contenedorPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
 
@@ -633,10 +681,25 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         txt_buscarEmpleado.selectAll();
     }//GEN-LAST:event_txt_buscarEmpleadoMouseClicked
 
+        private void actualizarCampos(Empleado empleado) {
+        txt_codigo.setText(empleado.getCodigo());
+        txt_nombre.setText(empleado.getNombre());
+        txt_apellido.setText(empleado.getApellido());
+        txt_edad.setText(Integer.toString(empleado.getEdad()));
+        txt_telefono.setText(empleado.getTelefono());
+        txt_fechaNacimiento.setText(empleado.getFecha_nacimiento());
+        txt_usuario.setText(empleado.getUsuario());
+        txt_contrasena.setText(empleado.getContrasena());
+        
+        if (empleado.getEdad() == 0) {
+                txt_edad.setText("");
+            }
+    }
+    
     private void txt_buscarEmpleadoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_buscarEmpleadoFocusLost
         if (txt_buscarEmpleado.getText().equals("")) {
 
-            txt_buscarEmpleado.setText("Buscar cliente por código de registro");
+            txt_buscarEmpleado.setText("Buscar empleado por código de registro");
             txt_codigo.setText("");
             txt_nombre.setText("");
             txt_apellido.setText("");
@@ -654,15 +717,9 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         if (txt_buscarEmpleado.getText().equals("Buscar empleado por código de registro")) {
             JOptionPane.showMessageDialog(this, "Es necesario el código de empleado que se desea buscar.");
         } else {
-            //Informacion de prueba : BORRAR         
-            txt_codigo.setText("1");
-            txt_nombre.setText("Andres");
-            txt_apellido.setText("Serna");
-            txt_edad.setText("24");
-            txt_telefono.setText("321-888-6044");
-            txt_fechaNacimiento.setText("Diagonal 58 # 84 52 - Niquia");
-
-            //Evitar poder Actualizar el código
+            Empleado empleado = new Empleado();
+            empleado.buscar(this, txt_buscarEmpleado.getText());
+            actualizarCampos(empleado);
             txt_codigo.setEditable(false);
 
         }
@@ -675,9 +732,25 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
     private void btn_registrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarClienteActionPerformed
         
         if( txt_codigo.getText().equals("") || txt_nombre.getText().equals("") || txt_apellido.getText().equals("") || txt_edad.getText().equals("") ||
-            txt_telefono.getText().equals("") || txt_fechaNacimiento.getText().equals("")) {
+            txt_telefono.getText().equals("") || txt_fechaNacimiento.getText().equals("")) 
+        {
             
             JOptionPane.showMessageDialog(this, "Es necesario llenar todos los campos.");
+        }
+        else
+        {
+            Empleado empleado = new Empleado(txt_codigo.getText(), txt_nombre.getText(), txt_apellido.getText(), Integer.parseInt(txt_edad.getText()),
+                    txt_telefono.getText(), txt_fechaNacimiento.getText(),txt_usuario.getText(), txt_contrasena.getText());
+            empleado.registrar(this);
+            txt_codigo.requestFocus();
+            txt_codigo.setText("");
+            txt_nombre.setText("");
+            txt_apellido.setText("");
+            txt_edad.setText("");
+            txt_telefono.setText("");
+            txt_fechaNacimiento.setText("");
+            txt_usuario.setText("");
+            txt_contrasena.setText("");
         }
     }//GEN-LAST:event_btn_registrarClienteActionPerformed
 
@@ -713,6 +786,73 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         inputNumeros(evt);
     }//GEN-LAST:event_txt_buscarEmpleadoKeyTyped
 
+    private void btn_eliminarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarEmpleadoActionPerformed
+
+       if (JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar este empleado? ", "Eliminar empleado", JOptionPane.YES_NO_OPTION) == 0) 
+       {
+            Empleado empleado = new Empleado();
+            empleado.buscar(this, txt_codigo.getText());
+            empleado.eliminar(this);
+            actualizarCampos(empleado);
+       }
+    }//GEN-LAST:event_btn_eliminarEmpleadoActionPerformed
+
+    private void btn_actualizarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarEmpleadoActionPerformed
+        
+        if (JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea actualizar la informacion este empleado? ", "Actualizar empleado", JOptionPane.YES_NO_OPTION) == 0)
+        {
+            Empleado empleado = new Empleado();
+            empleado.buscar(this, txt_codigo.getText());
+            empleado.actualizar(this, txt_codigo.getText(), txt_nombre.getText(), txt_apellido.getText(), Integer.parseInt(txt_edad.getText()),
+                    txt_telefono.getText(), txt_fechaNacimiento.getText(),txt_usuario.getText(), txt_contrasena.getText());
+        }
+       
+    }//GEN-LAST:event_btn_actualizarEmpleadoActionPerformed
+
+    private void contenedorPrincipalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contenedorPrincipalMouseClicked
+        contenedorPrincipal.requestFocus();
+    }//GEN-LAST:event_contenedorPrincipalMouseClicked
+
+    private void btn_buscarClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_buscarClienteMouseEntered
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_buscarCliente.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_buscarClienteMouseEntered
+
+    private void btn_buscarClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_buscarClienteMouseExited
+        Color btnHoverOut = new Color(74, 79, 231);
+        btn_buscarCliente.setBackground(btnHoverOut);
+    }//GEN-LAST:event_btn_buscarClienteMouseExited
+
+    private void btn_registrarClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_registrarClienteMouseExited
+        Color btnHoverOut = new Color(74, 79, 231);
+        btn_registrarCliente.setBackground(btnHoverOut);
+    }//GEN-LAST:event_btn_registrarClienteMouseExited
+
+    private void btn_registrarClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_registrarClienteMouseEntered
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_registrarCliente.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_registrarClienteMouseEntered
+
+    private void btn_actualizarEmpleadoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_actualizarEmpleadoMouseEntered
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_actualizarEmpleado.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_actualizarEmpleadoMouseEntered
+
+    private void btn_actualizarEmpleadoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_actualizarEmpleadoMouseExited
+        Color btnHoverOut = new Color(74, 79, 231);
+        btn_actualizarEmpleado.setBackground(btnHoverOut);
+    }//GEN-LAST:event_btn_actualizarEmpleadoMouseExited
+
+    private void btn_eliminarEmpleadoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_eliminarEmpleadoMouseEntered
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_eliminarEmpleado.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_eliminarEmpleadoMouseEntered
+
+    private void btn_eliminarEmpleadoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_eliminarEmpleadoMouseExited
+        Color btnHoverOut = new Color(74, 79, 231);
+        btn_eliminarEmpleado.setBackground(btnHoverOut);
+    }//GEN-LAST:event_btn_eliminarEmpleadoMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_actualizarEmpleado;
@@ -721,6 +861,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_registrarCliente;
     private javax.swing.JPanel cont_logo;
     private javax.swing.JPanel cont_titulo;
+    private javax.swing.JPanel contenedorPrincipal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -729,7 +870,6 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel lbl_apellido;

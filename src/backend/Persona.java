@@ -23,6 +23,7 @@ public abstract class Persona
     public abstract void buscar(Component parent, String codigo);
     public abstract void eliminar(Component parent);
     public abstract void actualizar(Component parent, String codigo,String nombre, String apellido, int edad,String direccion, String telefono);
+    public abstract void actualizar(Component parent,String codigo,String nombre, String apellido, int edad, String telefono, String fechaN, String usuario, String contrasena); 
 
     public Persona(String codigo, String nombre, String apellido, int edad, String telefono) {
         this.codigo = codigo;
