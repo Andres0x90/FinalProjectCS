@@ -83,7 +83,7 @@ public class frmArticulos extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        PiedePagina = new javax.swing.JLabel();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -426,9 +426,9 @@ public class frmArticulos extends javax.swing.JInternalFrame {
 
         jPanel5.setBackground(new java.awt.Color(46, 53, 137));
 
-        jLabel10.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Todos los derechos reservados - copyright 2020 - - - Versión de software 1.0 - - - Tech & chill");
+        PiedePagina.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
+        PiedePagina.setForeground(new java.awt.Color(255, 255, 255));
+        PiedePagina.setText("Todos los derechos reservados - copyright 2020 - - - Versión de software 1.0 - - - Tech & chill");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -436,14 +436,14 @@ public class frmArticulos extends javax.swing.JInternalFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel10)
+                .addComponent(PiedePagina)
                 .addGap(46, 46, 46))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel10)
+                .addComponent(PiedePagina)
                 .addGap(20, 20, 20))
         );
 
@@ -632,6 +632,7 @@ public class frmArticulos extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel PiedePagina;
     private javax.swing.JButton btn_actualizarArticulo;
     private javax.swing.JButton btn_buscarArticulo;
     private javax.swing.JButton btn_eliminarArticulo;
@@ -639,7 +640,6 @@ public class frmArticulos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel cont_logo;
     private javax.swing.JPanel cont_titulo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
