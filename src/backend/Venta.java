@@ -48,7 +48,7 @@ public class Venta
         articulo.buscar(parent, this.cod_art);
         info.add(articulo.getTitulo());
         info.add(Float.toString(articulo.getPrecio()));
-        info.add(Float.toString(articulo.getCantidad()));
+        info.add(Integer.toString(articulo.getCantidad()));
         
         return info;
     }

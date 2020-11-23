@@ -831,27 +831,34 @@ public class frmVentas extends javax.swing.JInternalFrame {
 
 
             if (seleccion == 0) {
-                String[] codigos = txt_buscarInformacion.getText().split(",");
-                Venta venta = new Venta(codigos[0],codigos[1], codigos[2]);
-                venta.insertar(Integer.parseInt(txt_cantidadArticulos.getText()), Float.parseFloat(txt_totalPagar.getText()));
-                
-                JOptionPane.showMessageDialog(this, "Venta realizada con exito.");
-                txt_nombreCliente.setText("--.--");
-                txt_apellidoCliente.setText("--.--");
-                txt_nombreEmpleado.setText("--.--");
-                txt_apellidoEmpleado.setText("--.--");
-                txt_nombreArticulo.setText("--.--");
-                txt_precio.setText("--.--");
-                txt_cantidad.setText("--.--");
-                txt_cantidadArticulos.setText("");
-                txt_totalPagar.setText("--.--");
+                if (Integer.parseInt(txt_cantidadArticulos.getText()) <= Integer.parseInt(txt_cantidad.getText()))
+                {
+                    String[] codigos = txt_buscarInformacion.getText().split(",");
+                    Venta venta = new Venta(codigos[0],codigos[1], codigos[2]);
+                    venta.insertar(Integer.parseInt(txt_cantidadArticulos.getText()), Float.parseFloat(txt_totalPagar.getText()));
 
-                txt_buscarInformacion.setText("Código cliente, Código empleado, Código articulo");
-                txt_buscarInformacion.requestFocus();
-                txt_buscarInformacion.selectAll();
+                    JOptionPane.showMessageDialog(this, "Venta realizada con exito.");
+                    txt_nombreCliente.setText("--.--");
+                    txt_apellidoCliente.setText("--.--");
+                    txt_nombreEmpleado.setText("--.--");
+                    txt_apellidoEmpleado.setText("--.--");
+                    txt_nombreArticulo.setText("--.--");
+                    txt_precio.setText("--.--");
+                    txt_cantidad.setText("--.--");
+                    txt_cantidadArticulos.setText("");
+                    txt_totalPagar.setText("--.--");
 
-                //Luego de guardar en la db ventas: no permite que se pueda escribir la cantidad
-                txt_cantidadArticulos.setEnabled(false);
+                    txt_buscarInformacion.setText("Código cliente, Código empleado, Código articulo");
+                    txt_buscarInformacion.requestFocus();
+                    txt_buscarInformacion.selectAll();
+
+                    //Luego de guardar en la db ventas: no permite que se pueda escribir la cantidad
+                    txt_cantidadArticulos.setEnabled(false);
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "Por favor ingrese una cantidad disponible segun el inventario del articulo"); 
+                }
 
             } else {
                 JOptionPane.showMessageDialog(this, "No se realizó la venta.");
