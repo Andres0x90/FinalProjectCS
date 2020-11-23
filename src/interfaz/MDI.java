@@ -30,9 +30,6 @@ public class MDI extends javax.swing.JFrame {
         menuVentas = new javax.swing.JMenuItem();
         menuReporte = new javax.swing.JMenuItem();
         menuSalir = new javax.swing.JMenuItem();
-        helpMenu = new javax.swing.JMenu();
-        contentMenuItem = new javax.swing.JMenuItem();
-        aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -113,20 +110,6 @@ public class MDI extends javax.swing.JFrame {
         menuArticulos.add(menuSalir);
 
         menuBar.add(menuArticulos);
-
-        helpMenu.setMnemonic('h');
-        helpMenu.setText("Ayuda");
-        helpMenu.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-
-        contentMenuItem.setMnemonic('c');
-        contentMenuItem.setText("info 1");
-        helpMenu.add(contentMenuItem);
-
-        aboutMenuItem.setMnemonic('i');
-        aboutMenuItem.setText("info 2");
-        helpMenu.add(aboutMenuItem);
-
-        menuBar.add(helpMenu);
 
         setJMenuBar(menuBar);
 
@@ -234,9 +217,6 @@ public class MDI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane Escritorio;
-    private javax.swing.JMenuItem aboutMenuItem;
-    private javax.swing.JMenuItem contentMenuItem;
-    private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu menuArticulos;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem menuClientes;

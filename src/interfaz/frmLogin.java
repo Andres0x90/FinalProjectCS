@@ -6,6 +6,7 @@
 package interfaz;
 
 import database.opEmpleado;
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -116,7 +117,15 @@ public class frmLogin extends javax.swing.JFrame {
         btn_iniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
         btn_iniciarSesion.setText("Iniciar sesión");
         btn_iniciarSesion.setBorder(null);
-        btn_iniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_iniciarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_iniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_iniciarSesionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_iniciarSesionMouseExited(evt);
+            }
+        });
         btn_iniciarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_iniciarSesionActionPerformed(evt);
@@ -253,6 +262,16 @@ public class frmLogin extends javax.swing.JFrame {
             loguear();
         }
     }//GEN-LAST:event_txt_contrasenaKeyPressed
+
+    private void btn_iniciarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_iniciarSesionMouseEntered
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_iniciarSesion.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_iniciarSesionMouseEntered
+
+    private void btn_iniciarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_iniciarSesionMouseExited
+        Color btnHoverOut = new Color(74, 79, 231);
+        btn_iniciarSesion.setBackground(btnHoverOut);
+    }//GEN-LAST:event_btn_iniciarSesionMouseExited
 
     /**
      * @param args the command line arguments
