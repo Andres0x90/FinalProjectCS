@@ -2,6 +2,7 @@ package interfaz;
 
 // Redimensionar imagenes
 import backend.Articulo;
+
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
@@ -274,6 +275,11 @@ public class frmArticulos extends javax.swing.JInternalFrame {
                 btn_actualizarArticuloMouseExited(evt);
             }
         });
+        btn_actualizarArticulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actualizarArticuloActionPerformed(evt);
+            }
+        });
 
         btn_eliminarArticulo.setBackground(new java.awt.Color(74, 79, 231));
         btn_eliminarArticulo.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
@@ -289,6 +295,11 @@ public class frmArticulos extends javax.swing.JInternalFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btn_eliminarArticuloMouseExited(evt);
+            }
+        });
+        btn_eliminarArticulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarArticuloActionPerformed(evt);
             }
         });
 
@@ -593,17 +604,31 @@ public class frmArticulos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txt_buscarClienteFocusLost
 
+    private void actualizarCampos(Articulo articulo) {
+
+        txt_codigo.setText(articulo.getCodigo());
+        txt_titulo.setText(articulo.getTitulo());
+        list_tipo.getModel().setSelectedItem(articulo.getTipo());
+        txt_precioVenta.setText(Float.toString(articulo.getPrecio()));
+        txt_cantidad.setText(Integer.toString(articulo.getCantidad()));
+        list_genero.getModel().setSelectedItem(articulo.getGenero());
+
+    }
+
     private void btn_buscarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarArticuloActionPerformed
 
         if (txt_buscarCliente.getText().equals("Buscar articulo por código de registro")) {
-            JOptionPane.showMessageDialog(this, "Es necesario el código de cliente que se desea buscar.");
+            JOptionPane.showMessageDialog(this, "Es necesario el código del articulo que se desea buscar.");
         } else {
-            //Informacion de prueba : BORRAR         
-            txt_codigo.setText("1");
-            txt_titulo.setText("Andres");
 
-            //Evitar poder Actualizar el código
+            Articulo articulo = new Articulo();
+            articulo.buscar(this, txt_buscarCliente.getText());
             txt_codigo.setEditable(false);
+            actualizarCampos(articulo);
+
+            if (txt_precioVenta.getText().equals("0")) {
+                txt_precioVenta.setText("");
+            }
 
         }
     }//GEN-LAST:event_btn_buscarArticuloActionPerformed
@@ -617,7 +642,12 @@ public class frmArticulos extends javax.swing.JInternalFrame {
                 || list_genero.getSelectedItem().equals("") || txt_precioVenta.getText().equals("") || txt_cantidad.getText().equals("")) {
 
             JOptionPane.showMessageDialog(this, "Es necesario llenar todos los campos.");
-        } else {
+        } else if(txt_precioVenta.getText().equals("0")){
+            JOptionPane.showMessageDialog(this, "El valor del articulo debe ser mayor a 0");
+        
+        } else if(txt_cantidad.getText().equals("0")){
+            JOptionPane.showMessageDialog(this, "La cantida de articulos debe ser mayor a 0");
+        }else {
             //String codigo, String titulo, String genero, float precio, int cantidad, String tipo
             Articulo articulo = new Articulo(
                     txt_codigo.getText(),
@@ -734,6 +764,53 @@ public class frmArticulos extends javax.swing.JInternalFrame {
     private void contenedorPrincipalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contenedorPrincipalMouseClicked
         contenedorPrincipal.requestFocus();
     }//GEN-LAST:event_contenedorPrincipalMouseClicked
+
+    private void btn_actualizarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarArticuloActionPerformed
+        if (txt_codigo.getText().equals("") || txt_titulo.getText().equals("") || list_tipo.getSelectedItem().equals("")
+                || list_genero.getSelectedItem().equals("") || txt_precioVenta.getText().equals("") || txt_cantidad.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(this, "Es necesario que todos los campos esten con el dato indicado.");
+        } else {
+
+            if (JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea actualizar la informacion del articulo? ", "Actualizar Articulo", JOptionPane.YES_NO_OPTION) == 0) {
+                Articulo articulo = new Articulo();
+                articulo.buscar(this, txt_buscarCliente.getText());
+                articulo.actualizar(this, txt_codigo.getText(), txt_titulo.getText(), list_genero.getSelectedItem().toString(), Float.parseFloat(txt_precioVenta.getText()),
+                        Integer.parseInt(txt_cantidad.getText()), list_tipo.getSelectedItem().toString());
+
+            }
+
+        }
+    }//GEN-LAST:event_btn_actualizarArticuloActionPerformed
+
+    private void btn_eliminarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarArticuloActionPerformed
+        if (txt_codigo.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Es necesario digitar el código");
+        } else {
+            if (JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar este articulo? ", "Eliminar Articulo", JOptionPane.YES_NO_OPTION) == 0) {
+
+                Articulo articulo = new Articulo();
+                articulo.buscar(this, txt_codigo.getText());
+                articulo.eliminar(this);
+
+                actualizarCampos(articulo);
+
+                txt_buscarCliente.setText("Buscar cliente por código de registro");
+                txt_codigo.requestFocus();
+                txt_codigo.setEditable(true);
+
+                if (txt_precioVenta.getText().equals("0.0")) {
+                    txt_precioVenta.setText("");
+                }
+                
+                if (txt_cantidad.getText().equals("0")) {
+                    txt_cantidad.setText("");
+                }
+
+            }
+
+        }
+    }//GEN-LAST:event_btn_eliminarArticuloActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

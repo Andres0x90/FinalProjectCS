@@ -317,7 +317,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         btn_actualizarEmpleado.setToolTipText("");
         btn_actualizarEmpleado.setBorder(null);
         btn_actualizarEmpleado.setBorderPainted(false);
-        btn_actualizarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_actualizarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_actualizarEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btn_actualizarEmpleadoMouseEntered(evt);

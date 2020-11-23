@@ -2,6 +2,7 @@ package backend;
 
 import database.Crud;
 import java.awt.Component;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class Articulo {
@@ -12,6 +13,10 @@ public class Articulo {
     protected float precio;
     protected int cantidad;
     protected String tipo;
+    
+     public Articulo(){
+     
+     }
 
     public Articulo(String codigo, String titulo, String genero, float precio, int cantidad, String tipo) {
 
@@ -73,15 +78,65 @@ public class Articulo {
     }
 
     //Metodos para trabajar con el CRUD
-    
-    public void registrar(Component parent) 
-    {
+    public void registrar(Component parent) {
         Crud crudArticulo = new Crud();
-        boolean done = crudArticulo.create("INSERT INTO articulo VALUES('" + this.codigo +"','" + 
-                this.titulo +"','" + this.genero + "','" + this.precio + "','" + this.cantidad +"','" + this.tipo +"')");
-        if (done)
+        boolean done = crudArticulo.create("INSERT INTO articulo VALUES('" + this.codigo + "','"
+                + this.titulo + "','" + this.genero + "','" + this.precio + "','" + this.cantidad + "','" + this.tipo + "')");
+        if (done) {
             JOptionPane.showMessageDialog(parent, "Articulo registrado correctamente.");
-        else
+        } else {
             JOptionPane.showMessageDialog(parent, "Ocurrio un error al registrar el articulo.");
+        }
+    }
+
+    public void actualizar(Component parent, String codigo, String titulo, String genero, float precio, int cantidad, String tipo) {
+        if (this.codigo.equals("")) {
+            JOptionPane.showMessageDialog(parent, "Por favor busque un cliente valido");
+        } else {
+            Crud articulo = new Crud();
+            articulo.update("UPDATE articulo SET codigo='" + codigo + "',titulo='" + titulo + "',genero='" + genero
+                    + "',precio=" + precio + ",cantidad=" + cantidad + ",tipo='" + tipo + "' WHERE codigo='" + this.codigo + "'");
+
+            JOptionPane.showMessageDialog(parent, "Cliente actualizado correctamente");
+        }
+    }
+
+    public void buscar(Component parent, String codigo) {
+        Crud articulo = new Crud();
+        ArrayList<String> data = articulo.read("SELECT * FROM articulo WHERE articulo.codigo = '" + codigo + "'");
+
+        if (data != null) {
+            this.codigo = data.get(0);
+            this.titulo = data.get(1);
+            this.genero = data.get(2);
+            this.precio = Float.parseFloat(data.get(3));
+            this.cantidad = Integer.parseInt(data.get(4));
+            this.tipo = data.get(5);
+        } else {
+            JOptionPane.showMessageDialog(parent, "Cliente no encontrado");
+        }
+    }
+    
+    public void eliminar(Component parent) 
+    {
+        Crud articulo = new Crud();
+        articulo.delete("DELETE FROM venta WHERE venta.cod_art = '" + this.codigo + "'");
+        articulo.delete("DELETE FROM articulo WHERE articulo.codigo = '" + this.codigo + "'");
+        
+        
+        if (this.codigo.equals(""))
+        {
+            JOptionPane.showMessageDialog(parent, "Por favor busque un articulo válido.");
+        }
+        else
+        {
+            this.codigo = "";
+            this.titulo = "";
+            this.genero = "";
+            this.precio = 0;
+            this.cantidad = 0;
+            this.tipo = "";            
+            JOptionPane.showMessageDialog(parent, "Articulo elminado correctamente.");
+        }
     }
 }
