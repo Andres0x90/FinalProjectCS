@@ -1,11 +1,10 @@
 package interfaz;
 
 // Redimensionar imagenes
+import backend.Articulo;
+
 import java.awt.Color;
-import java.awt.Image;
 import java.awt.event.KeyEvent;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class frmArticulos extends javax.swing.JInternalFrame {
@@ -23,8 +22,8 @@ public class frmArticulos extends javax.swing.JInternalFrame {
 
     //Arrays para Tipo de articulo
     String TipoArticulo[] = {"", "Pelicula", "Videojuego"};
-    String generoPeliculas[] = {"Género pelicula 1", "Género pelicula 2", "Género pelicula 3"};
-    String generoVideoJuegos[] = {"Género videojuego 1", "Género videojuego 2", "Género videojuego 3"};
+    String generoPeliculas[] = {"", "Documental", "Biográfico", "Musical", "Comedia", "Acción", "Drama", "Terror"};
+    String generoVideoJuegos[] = {"", "Aventura", "Estrategico", "RPG", "Deportivo", "Carreras", "Terror"};
 
     //Permitir solo numeros en el input
     private void inputNumeros(java.awt.event.KeyEvent evt) {
@@ -57,7 +56,7 @@ public class frmArticulos extends javax.swing.JInternalFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        jPanel1 = new javax.swing.JPanel();
+        contenedorPrincipal = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lbl_codigo = new javax.swing.JLabel();
         txt_codigo = new javax.swing.JTextField();
@@ -117,14 +116,19 @@ public class frmArticulos extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorPrincipal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                contenedorPrincipalMouseClicked(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         lbl_codigo.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_codigo.setText("Código:");
         lbl_codigo.setToolTipText("");
-        lbl_codigo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_codigo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_codigo.setName(""); // NOI18N
         lbl_codigo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -146,7 +150,7 @@ public class frmArticulos extends javax.swing.JInternalFrame {
 
         lbl_titulo.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_titulo.setText("Titulo:");
-        lbl_titulo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_titulo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_titulo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_tituloMouseClicked(evt);
@@ -164,7 +168,7 @@ public class frmArticulos extends javax.swing.JInternalFrame {
 
         lbl_tipo.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_tipo.setText("Tipo:");
-        lbl_tipo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_tipo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_tipo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_tipoMouseClicked(evt);
@@ -173,7 +177,7 @@ public class frmArticulos extends javax.swing.JInternalFrame {
 
         lbl_precioVenta.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_precioVenta.setText("Precio de venta:");
-        lbl_precioVenta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_precioVenta.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_precioVenta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_precioVentaMouseClicked(evt);
@@ -182,7 +186,7 @@ public class frmArticulos extends javax.swing.JInternalFrame {
 
         lbl_cantidad.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_cantidad.setText("Cantidad:");
-        lbl_cantidad.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_cantidad.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_cantidad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_cantidadMouseClicked(evt);
@@ -217,6 +221,14 @@ public class frmArticulos extends javax.swing.JInternalFrame {
         btn_buscarArticulo.setBorder(null);
         btn_buscarArticulo.setBorderPainted(false);
         btn_buscarArticulo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_buscarArticulo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_buscarArticuloMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_buscarArticuloMouseExited(evt);
+            }
+        });
         btn_buscarArticulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscarArticuloActionPerformed(evt);
@@ -230,6 +242,14 @@ public class frmArticulos extends javax.swing.JInternalFrame {
         btn_registrarArticulo.setBorder(null);
         btn_registrarArticulo.setBorderPainted(false);
         btn_registrarArticulo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_registrarArticulo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_registrarArticuloMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_registrarArticuloMouseExited(evt);
+            }
+        });
         btn_registrarArticulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_registrarArticuloActionPerformed(evt);
@@ -244,6 +264,19 @@ public class frmArticulos extends javax.swing.JInternalFrame {
         btn_actualizarArticulo.setBorder(null);
         btn_actualizarArticulo.setBorderPainted(false);
         btn_actualizarArticulo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_actualizarArticulo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_actualizarArticuloMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_actualizarArticuloMouseExited(evt);
+            }
+        });
+        btn_actualizarArticulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_actualizarArticuloActionPerformed(evt);
+            }
+        });
 
         btn_eliminarArticulo.setBackground(new java.awt.Color(74, 79, 231));
         btn_eliminarArticulo.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
@@ -253,10 +286,23 @@ public class frmArticulos extends javax.swing.JInternalFrame {
         btn_eliminarArticulo.setBorder(null);
         btn_eliminarArticulo.setBorderPainted(false);
         btn_eliminarArticulo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_eliminarArticulo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_eliminarArticuloMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_eliminarArticuloMouseExited(evt);
+            }
+        });
+        btn_eliminarArticulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarArticuloActionPerformed(evt);
+            }
+        });
 
         lbl_genero.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         lbl_genero.setText("Género:");
-        lbl_genero.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl_genero.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         lbl_genero.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lbl_generoMouseClicked(evt);
@@ -447,29 +493,29 @@ public class frmArticulos extends javax.swing.JInternalFrame {
                 .addGap(20, 20, 20))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout contenedorPrincipalLayout = new javax.swing.GroupLayout(contenedorPrincipal);
+        contenedorPrincipal.setLayout(contenedorPrincipalLayout);
+        contenedorPrincipalLayout.setHorizontalGroup(
+            contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenedorPrincipalLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenedorPrincipalLayout.createSequentialGroup()
                         .addComponent(cont_logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cont_titulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(30, 30, 30))
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        contenedorPrincipalLayout.setVerticalGroup(
+            contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenedorPrincipalLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cont_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cont_logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -487,12 +533,12 @@ public class frmArticulos extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(contenedorPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contenedorPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
 
@@ -555,17 +601,31 @@ public class frmArticulos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txt_buscarClienteFocusLost
 
+    private void actualizarCampos(Articulo articulo) {
+
+        txt_codigo.setText(articulo.getCodigo());
+        txt_titulo.setText(articulo.getTitulo());
+        list_tipo.getModel().setSelectedItem(articulo.getTipo());
+        txt_precioVenta.setText(Float.toString(articulo.getPrecio()));
+        txt_cantidad.setText(Integer.toString(articulo.getCantidad()));
+        list_genero.getModel().setSelectedItem(articulo.getGenero());
+
+    }
+
     private void btn_buscarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarArticuloActionPerformed
 
         if (txt_buscarCliente.getText().equals("Buscar articulo por código de registro")) {
-            JOptionPane.showMessageDialog(this, "Es necesario el código de cliente que se desea buscar.");
+            JOptionPane.showMessageDialog(this, "Es necesario el código del articulo que se desea buscar.");
         } else {
-            //Informacion de prueba : BORRAR         
-            txt_codigo.setText("1");
-            txt_titulo.setText("Andres");
 
-            //Evitar poder Actualizar el código
+            Articulo articulo = new Articulo();
+            articulo.buscar(this, txt_buscarCliente.getText());
             txt_codigo.setEditable(false);
+            actualizarCampos(articulo);
+
+            if (txt_precioVenta.getText().equals("0")) {
+                txt_precioVenta.setText("");
+            }
 
         }
     }//GEN-LAST:event_btn_buscarArticuloActionPerformed
@@ -575,7 +635,36 @@ public class frmArticulos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_buscarClienteActionPerformed
 
     private void btn_registrarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarArticuloActionPerformed
+        if (txt_codigo.getText().equals("") || txt_titulo.getText().equals("") || list_tipo.getSelectedItem().equals("")
+                || list_genero.getSelectedItem().equals("") || txt_precioVenta.getText().equals("") || txt_cantidad.getText().equals("")) {
 
+            JOptionPane.showMessageDialog(this, "Es necesario llenar todos los campos.");
+        } else if(txt_precioVenta.getText().equals("0")){
+            JOptionPane.showMessageDialog(this, "El valor del articulo debe ser mayor a 0");
+        
+        } else if(txt_cantidad.getText().equals("0")){
+            JOptionPane.showMessageDialog(this, "La cantida de articulos debe ser mayor a 0");
+        }else {
+            //String codigo, String titulo, String genero, float precio, int cantidad, String tipo
+            Articulo articulo = new Articulo(
+                    txt_codigo.getText(),
+                    txt_titulo.getText(),
+                    list_genero.getSelectedItem().toString(),
+                    Float.parseFloat(txt_precioVenta.getText()),
+                    Integer.parseInt(txt_cantidad.getText()),
+                    list_tipo.getSelectedItem().toString()
+            );
+            articulo.registrar(this);
+
+            txt_codigo.requestFocus();
+
+            txt_codigo.setText("");
+            txt_titulo.setText("");
+            list_tipo.setSelectedItem("");
+            txt_precioVenta.setText("");
+            txt_cantidad.setText("");
+            list_genero.setSelectedItem("");
+        }
 
     }//GEN-LAST:event_btn_registrarArticuloActionPerformed
 
@@ -595,28 +684,27 @@ public class frmArticulos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txt_precioVentaKeyPressed
 
     private void txt_cantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_cantidadKeyPressed
-        // TODO add your handling code here:
+        if (teclaEnter(evt)) {
+            txt_codigo.requestFocus();
+        }
     }//GEN-LAST:event_txt_cantidadKeyPressed
 
     private void list_tipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_list_tipoActionPerformed
-        
+
         list_genero.removeAllItems();
-        
+
         if (list_tipo.getSelectedIndex() == 1) {
 
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < generoPeliculas.length; i++) {
                 list_genero.addItem(generoPeliculas[i]);
             }
             list_genero.setEnabled(true);
-            //JOptionPane.showMessageDialog(null, "Seleccionado: " + list_tipo.getSelectedIndex());
-        } else if(list_tipo.getSelectedIndex() == 2) {
-            for (int i = 0; i < 3; i++) {
+        } else if (list_tipo.getSelectedIndex() == 2) {
+            for (int i = 0; i < generoVideoJuegos.length; i++) {
                 list_genero.addItem(generoVideoJuegos[i]);
             }
             list_genero.setEnabled(true);
-            //JOptionPane.showMessageDialog(null, "Seleccionado: " + list_tipo.getSelectedIndex());
-            list_genero.setEnabled(true);
-        } else{
+        } else {
             list_genero.setEnabled(false);
         }
 
@@ -630,6 +718,97 @@ public class frmArticulos extends javax.swing.JInternalFrame {
         inputNumeros(evt);
     }//GEN-LAST:event_txt_precioVentaKeyTyped
 
+    private void btn_buscarArticuloMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_buscarArticuloMouseEntered
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_buscarArticulo.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_buscarArticuloMouseEntered
+
+    private void btn_buscarArticuloMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_buscarArticuloMouseExited
+        Color btnHoverOut = new Color(74, 79, 231);
+        btn_buscarArticulo.setBackground(btnHoverOut);
+    }//GEN-LAST:event_btn_buscarArticuloMouseExited
+
+    private void btn_registrarArticuloMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_registrarArticuloMouseEntered
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_registrarArticulo.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_registrarArticuloMouseEntered
+
+    private void btn_registrarArticuloMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_registrarArticuloMouseExited
+        Color btnHoverOut = new Color(74, 79, 231);
+        btn_registrarArticulo.setBackground(btnHoverOut);
+    }//GEN-LAST:event_btn_registrarArticuloMouseExited
+
+    private void btn_actualizarArticuloMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_actualizarArticuloMouseEntered
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_actualizarArticulo.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_actualizarArticuloMouseEntered
+
+    private void btn_actualizarArticuloMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_actualizarArticuloMouseExited
+        Color btnHoverOut = new Color(74, 79, 231);
+        btn_actualizarArticulo.setBackground(btnHoverOut);
+    }//GEN-LAST:event_btn_actualizarArticuloMouseExited
+
+    private void btn_eliminarArticuloMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_eliminarArticuloMouseEntered
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_eliminarArticulo.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_eliminarArticuloMouseEntered
+
+    private void btn_eliminarArticuloMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_eliminarArticuloMouseExited
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_eliminarArticulo.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_eliminarArticuloMouseExited
+
+    private void contenedorPrincipalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contenedorPrincipalMouseClicked
+        contenedorPrincipal.requestFocus();
+    }//GEN-LAST:event_contenedorPrincipalMouseClicked
+
+    private void btn_actualizarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_actualizarArticuloActionPerformed
+        if (txt_codigo.getText().equals("") || txt_titulo.getText().equals("") || list_tipo.getSelectedItem().equals("")
+                || list_genero.getSelectedItem().equals("") || txt_precioVenta.getText().equals("") || txt_cantidad.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(this, "Es necesario que todos los campos esten con el dato indicado.");
+        } else {
+
+            if (JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea actualizar la informacion del articulo? ", "Actualizar Articulo", JOptionPane.YES_NO_OPTION) == 0) {
+                Articulo articulo = new Articulo();
+                articulo.buscar(this, txt_buscarCliente.getText());
+                articulo.actualizar(this, txt_codigo.getText(), txt_titulo.getText(), list_genero.getSelectedItem().toString(), Float.parseFloat(txt_precioVenta.getText()),
+                        Integer.parseInt(txt_cantidad.getText()), list_tipo.getSelectedItem().toString());
+
+            }
+
+        }
+    }//GEN-LAST:event_btn_actualizarArticuloActionPerformed
+
+    private void btn_eliminarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarArticuloActionPerformed
+        if (txt_codigo.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Es necesario digitar el código");
+        } else {
+            if (JOptionPane.showConfirmDialog(this, "¿Esta seguro que desea eliminar este articulo? ", "Eliminar Articulo", JOptionPane.YES_NO_OPTION) == 0) {
+
+                Articulo articulo = new Articulo();
+                articulo.buscar(this, txt_codigo.getText());
+                articulo.eliminar(this);
+
+                actualizarCampos(articulo);
+
+                txt_buscarCliente.setText("Buscar cliente por código de registro");
+                txt_codigo.requestFocus();
+                txt_codigo.setEditable(true);
+
+                if (txt_precioVenta.getText().equals("0.0")) {
+                    txt_precioVenta.setText("");
+                }
+                
+                if (txt_cantidad.getText().equals("0")) {
+                    txt_cantidad.setText("");
+                }
+
+            }
+
+        }
+    }//GEN-LAST:event_btn_eliminarArticuloActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel PiedePagina;
@@ -639,6 +818,7 @@ public class frmArticulos extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_registrarArticulo;
     private javax.swing.JPanel cont_logo;
     private javax.swing.JPanel cont_titulo;
+    private javax.swing.JPanel contenedorPrincipal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel8;
@@ -646,7 +826,6 @@ public class frmArticulos extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel lbl_cantidad;

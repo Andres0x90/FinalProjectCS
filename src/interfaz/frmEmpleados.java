@@ -49,7 +49,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        jPanel1 = new javax.swing.JPanel();
+        contenedorPrincipal = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lbl_codigo = new javax.swing.JLabel();
         txt_codigo = new javax.swing.JTextField();
@@ -113,7 +113,12 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        contenedorPrincipal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                contenedorPrincipalMouseClicked(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -269,7 +274,15 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         btn_buscarCliente.setText("Buscar empleado");
         btn_buscarCliente.setBorder(null);
         btn_buscarCliente.setBorderPainted(false);
-        btn_buscarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_buscarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_buscarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_buscarClienteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_buscarClienteMouseExited(evt);
+            }
+        });
         btn_buscarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscarClienteActionPerformed(evt);
@@ -282,7 +295,15 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         btn_registrarCliente.setText("Registrar empleado");
         btn_registrarCliente.setBorder(null);
         btn_registrarCliente.setBorderPainted(false);
-        btn_registrarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_registrarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_registrarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_registrarClienteMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_registrarClienteMouseExited(evt);
+            }
+        });
         btn_registrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_registrarClienteActionPerformed(evt);
@@ -296,7 +317,15 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         btn_actualizarEmpleado.setToolTipText("");
         btn_actualizarEmpleado.setBorder(null);
         btn_actualizarEmpleado.setBorderPainted(false);
-        btn_actualizarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_actualizarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_actualizarEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_actualizarEmpleadoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_actualizarEmpleadoMouseExited(evt);
+            }
+        });
         btn_actualizarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_actualizarEmpleadoActionPerformed(evt);
@@ -310,7 +339,15 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         btn_eliminarEmpleado.setToolTipText("");
         btn_eliminarEmpleado.setBorder(null);
         btn_eliminarEmpleado.setBorderPainted(false);
-        btn_eliminarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_eliminarEmpleado.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_eliminarEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_eliminarEmpleadoMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_eliminarEmpleadoMouseExited(evt);
+            }
+        });
         btn_eliminarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_eliminarEmpleadoActionPerformed(evt);
@@ -514,29 +551,29 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
                 .addGap(20, 20, 20))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout contenedorPrincipalLayout = new javax.swing.GroupLayout(contenedorPrincipal);
+        contenedorPrincipal.setLayout(contenedorPrincipalLayout);
+        contenedorPrincipalLayout.setHorizontalGroup(
+            contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenedorPrincipalLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contenedorPrincipalLayout.createSequentialGroup()
                         .addComponent(cont_logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cont_titulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(30, 30, 30))
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        contenedorPrincipalLayout.setVerticalGroup(
+            contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(contenedorPrincipalLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(contenedorPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cont_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cont_logo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -554,12 +591,12 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(contenedorPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contenedorPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
 
@@ -772,6 +809,50 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
        
     }//GEN-LAST:event_btn_actualizarEmpleadoActionPerformed
 
+    private void contenedorPrincipalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_contenedorPrincipalMouseClicked
+        contenedorPrincipal.requestFocus();
+    }//GEN-LAST:event_contenedorPrincipalMouseClicked
+
+    private void btn_buscarClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_buscarClienteMouseEntered
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_buscarCliente.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_buscarClienteMouseEntered
+
+    private void btn_buscarClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_buscarClienteMouseExited
+        Color btnHoverOut = new Color(74, 79, 231);
+        btn_buscarCliente.setBackground(btnHoverOut);
+    }//GEN-LAST:event_btn_buscarClienteMouseExited
+
+    private void btn_registrarClienteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_registrarClienteMouseExited
+        Color btnHoverOut = new Color(74, 79, 231);
+        btn_registrarCliente.setBackground(btnHoverOut);
+    }//GEN-LAST:event_btn_registrarClienteMouseExited
+
+    private void btn_registrarClienteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_registrarClienteMouseEntered
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_registrarCliente.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_registrarClienteMouseEntered
+
+    private void btn_actualizarEmpleadoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_actualizarEmpleadoMouseEntered
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_actualizarEmpleado.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_actualizarEmpleadoMouseEntered
+
+    private void btn_actualizarEmpleadoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_actualizarEmpleadoMouseExited
+        Color btnHoverOut = new Color(74, 79, 231);
+        btn_actualizarEmpleado.setBackground(btnHoverOut);
+    }//GEN-LAST:event_btn_actualizarEmpleadoMouseExited
+
+    private void btn_eliminarEmpleadoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_eliminarEmpleadoMouseEntered
+        Color btnHoverOn = new Color(39, 48, 114);
+        btn_eliminarEmpleado.setBackground(btnHoverOn);
+    }//GEN-LAST:event_btn_eliminarEmpleadoMouseEntered
+
+    private void btn_eliminarEmpleadoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_eliminarEmpleadoMouseExited
+        Color btnHoverOut = new Color(74, 79, 231);
+        btn_eliminarEmpleado.setBackground(btnHoverOut);
+    }//GEN-LAST:event_btn_eliminarEmpleadoMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_actualizarEmpleado;
@@ -780,6 +861,7 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_registrarCliente;
     private javax.swing.JPanel cont_logo;
     private javax.swing.JPanel cont_titulo;
+    private javax.swing.JPanel contenedorPrincipal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -788,7 +870,6 @@ public class frmEmpleados extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel lbl_apellido;

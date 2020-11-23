@@ -77,6 +77,7 @@ public class Cliente extends Persona
     public void eliminar(Component parent) 
     {
         Crud crudCliente = new Crud();
+        crudCliente.delete("DELETE FROM venta WHERE venta.cod_clie = '" + this.codigo + "'");
         crudCliente.delete("DELETE FROM cliente WHERE cliente.codigo = '" + this.codigo + "'");
         
         if (this.codigo.equals(""))
@@ -91,7 +92,7 @@ public class Cliente extends Persona
             this.edad = 0;
             this.direccion = "";
             this.telefono = "";            
-            JOptionPane.showMessageDialog(parent, "Cliente elminado correctamente.");
+            JOptionPane.showMessageDialog(parent, "Cliente eliminado correctamente.");
         }
     }
     
