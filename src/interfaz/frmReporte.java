@@ -177,7 +177,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
 
                     modeloBusquedaGeneral.setColumnIdentifiers(titulosArticulos); //Asignar titulos a la tabla
 
-                    filtrarCodigo("Select * from articulo where codigo = " + codigoBusqueda, modeloBusquedaGeneral);
+                    filtrarCodigo("Select * from articulo where codigo = '" + codigoBusqueda + "'", modeloBusquedaGeneral);
                     tabla_resultadoGeneral.setModel(modeloBusquedaGeneral);
 
                 } catch (SQLException ex) {
@@ -970,7 +970,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
 
                         modeloIDarticulo.setColumnIdentifiers(titulosArticulos); //Asignar titulos a la tabla
 
-                        filtrarCodigo("SELECT articulo.codigo, articulo.titulo, articulo.genero, articulo.precio, articulo.cantidad, articulo.tipo from venta inner join articulo on " + tabla_ventas.getValueAt(fila, 3).toString() + "= articulo.codigo", modeloIDarticulo);
+                        filtrarCodigo("SELECT articulo.codigo, articulo.titulo, articulo.genero, articulo.precio, articulo.cantidad, articulo.tipo from venta inner join articulo on '" + tabla_ventas.getValueAt(fila, 3).toString() + "'= articulo.codigo", modeloIDarticulo);
                         tabla_articuloInterna.setModel(modeloIDarticulo);
 
                     } catch (SQLException ex) {
@@ -1019,7 +1019,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
 
                         modeloBusquedaInfo.setColumnIdentifiers(titulosArticulos); //Asignar titulos a la tabla
 
-                        filtrarCodigo("SELECT articulo.codigo, articulo.titulo, articulo.genero, articulo.precio, articulo.cantidad, articulo.tipo from venta inner join articulo on " + tabla_resultadoGeneral.getValueAt(fila, 3).toString() + "= articulo.codigo", modeloBusquedaInfo);
+                        filtrarCodigo("SELECT articulo.codigo, articulo.titulo, articulo.genero, articulo.precio, articulo.cantidad, articulo.tipo from venta inner join articulo on '" + tabla_resultadoGeneral.getValueAt(fila, 3).toString() + "'= articulo.codigo", modeloBusquedaInfo);
                         tabla_empleadoxarticulo.setModel(modeloBusquedaInfo);
 
                     } catch (SQLException ex) {
@@ -1028,7 +1028,6 @@ public class frmReporte extends javax.swing.JInternalFrame {
                 }
 
             } else if (tipoBusqueda.equals("articulo")) {
-
             }
         }
     }//GEN-LAST:event_tabla_resultadoGeneralMouseClicked

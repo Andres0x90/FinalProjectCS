@@ -50,7 +50,7 @@ public class Reportes {
         try {
             Connection con = DriverManager.getConnection(cadenaConexion);
             Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("Select * from empleado where codigo in (select DISTINCT cod_emp from venta where cod_art = " + codigoArticulo + ")");
+            ResultSet rs = stmt.executeQuery("Select * from empleado where codigo in (select DISTINCT cod_emp from venta where cod_art = '" + codigoArticulo + "')");
             rsVentasXvendedor = rs;
         } catch (SQLException ex) {
             Logger.getLogger(Reportes.class.getName()).log(Level.SEVERE, null, ex);

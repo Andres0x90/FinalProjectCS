@@ -6,3 +6,4 @@ mssql-jdbc-8.4.1.jre14.jar
 sqljdbc41.dll
 sqljdbc_auth.dll
 mssql-jdbc_auth-8.4.1.x64.dll
+/dist/
