@@ -910,8 +910,6 @@ public class frmReporte extends javax.swing.JInternalFrame {
 
         if (!(list_buscador.getSelectedItem() == "Mostrar ventas")) {
 
-            //Quitar información si no estoy en la tabla ventas
-            System.out.println("Ya no es listado de ventas");
             DefaultTableModel modeloCliente = new DefaultTableModel(); //Crear el modelo a la tabla
             tabla_clienteInterna.setModel(modeloCliente);
             modeloCliente.setRowCount(0);
