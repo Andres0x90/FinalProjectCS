@@ -253,6 +253,7 @@ public class frmReporte extends javax.swing.JInternalFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(null);
         setClosable(true);
+        setTitle("Reportes");
         setPreferredSize(new java.awt.Dimension(1292, 916));
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
